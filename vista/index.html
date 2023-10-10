@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Foro - Foro</title>
+</head>
+<body>
+    <h1>Bienvenido a Foro</h1>
+    <ul id="lista-categorias">
+    </ul>
+</body>
+    <script>
+        async function loadCategorias() {
+            const response = await fetch("http://localhost/EntornoServidor/foro/controlador/categoria/");
+            return await response.json();
+        }
+        async function printCategorias(){
+            const list = document.getElementById("lista-categorias");
+            const categorias = await loadCategorias();
+
+            for(let categoria of categorias){
+                const element = document.createElement("li");
+                element.textContent = categoria.nombre;
+                list.appendChild(element);
+            }
+        }
+        printCategorias();
+    </script>
+</html>
