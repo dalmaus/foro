@@ -5,42 +5,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../otros/styles.css">
+    <link rel="stylesheet" href="../src/css/styles.css">
     <title>Foro - Foro</title>
+    <script type="module">
+        import { printCategorias } from "../src/js/script.js";
+        printCategorias();
+    </script>
 </head>
 <body>
     <h1>ForoForo</h1>
     <ul id="list-categorias">
     </ul>
 </body>
-    <script>
-        async function loadCategorias() {
-            const response = await fetch("http://localhost/EntornoServidor/foro/controlador/categoria/");
-            return await response.json();
-        }
-        async function printCategorias(){
-            const list = document.getElementById("list-categorias");
-            const categorias = await loadCategorias();
-
-            for(let categoria of categorias){
-                const li = document.createElement("li");
-                const div = document.createElement("div");
-                div.classList.add("list-item");
-                const catName = document.createElement("h2");
-                const anchor = document.createElement("a");
-                anchor.href = `../categoria?categoria=${categoria.id}`;
-
-                anchor.textContent = categoria.nombre;
-                const catDesc = document.createElement("p");
-                catDesc.textContent = categoria.descripcion;
-
-                list.appendChild(li);
-                li.appendChild(div);
-                div.appendChild(catName);
-                catName.appendChild(anchor);
-                div.appendChild(catDesc);
-            }
-        }
-        printCategorias();
-    </script>
 </html>
