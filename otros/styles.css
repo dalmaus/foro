@@ -5,16 +5,26 @@
 body{
     font-family: 'Ubuntu', sans-serif;
 }
-#lista-categorias, h1{
+h1{
+    margin: 45px;
+}
+#list-categorias{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 0 auto;
+}
+#list-categorias, h1{
     text-align: center;
 }
-#lista-categorias{
-    list-style: none;
-}
-#lista-categorias li{
+
+#list-categorias li{
+    display: inline-block;
     padding: 15px;
     border: 1px solid burlywood;
 }
-#lista-categorias li{
-    display: inline-block;
+.list-item a{
+    text-decoration: none;
+    color: red;
 }

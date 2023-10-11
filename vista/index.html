@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>ForoForo</h1>
-    <ul id="lista-categorias">
+    <ul id="list-categorias">
     </ul>
 </body>
     <script>
@@ -19,20 +19,25 @@
             return await response.json();
         }
         async function printCategorias(){
-            const list = document.getElementById("lista-categorias");
+            const list = document.getElementById("list-categorias");
             const categorias = await loadCategorias();
 
             for(let categoria of categorias){
                 const li = document.createElement("li");
                 const div = document.createElement("div");
+                div.classList.add("list-item");
                 const catName = document.createElement("h2");
-                catName.textContent = categoria.nombre;
+                const anchor = document.createElement("a");
+                anchor.href = `../categoria?categoria=${categoria.id}`;
+
+                anchor.textContent = categoria.nombre;
                 const catDesc = document.createElement("p");
                 catDesc.textContent = categoria.descripcion;
 
                 list.appendChild(li);
                 li.appendChild(div);
                 div.appendChild(catName);
+                catName.appendChild(anchor);
                 div.appendChild(catDesc);
             }
         }

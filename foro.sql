@@ -40,7 +40,7 @@ INSERT INTO categoria VALUES(null, 'General', 'Cuestiones generales, informació
 INSERT INTO categoria VALUES(null, 'Política', 'Debate sobre asuntos gubernamentales y políticos de actualidad.');
 INSERT INTO categoria VALUES(null, 'Deportes', 'Comparte noticias y resultados de tus deportes favoritos.');
 INSERT INTO categoria VALUES(null, 'Videojuegos', 'Discute juegos, trucos y consejos con otros jugadores.');
-INSERT INTO categoria VALUES(null, 'Música', 'Explora géneros, artistas y comparte tus canciones favoritas.');
+INSERT INTO categoria VALUES(null, 'Música', 'Explora géneros, artistas y comparte tus canciones.');
 
 INSERT INTO usuario VALUES(null, 'PruebaUser', 'prueba@user');
 
