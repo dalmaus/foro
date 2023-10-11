@@ -9,7 +9,8 @@ DROP TABLE IF EXISTS hilo;
 
 CREATE TABLE categoria (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(30) NOT NULL
+    nombre VARCHAR(30) NOT NULL,
+    descripcion VARCHAR(255)
 );
 CREATE TABLE usuario (
     id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -35,11 +36,11 @@ CREATE TABLE mensaje (
     FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
-INSERT INTO categoria VALUES(null, 'General');
-INSERT INTO categoria VALUES(null, 'Política');
-INSERT INTO categoria VALUES(null, 'Deportes');
-INSERT INTO categoria VALUES(null, 'Videojuegos');
-INSERT INTO categoria VALUES(null, 'Música');
+INSERT INTO categoria VALUES(null, 'General', 'Cuestiones generales, información y dudas sobre temas menos específicos');
+INSERT INTO categoria VALUES(null, 'Política', 'Debate sobre asuntos gubernamentales y políticos de actualidad.');
+INSERT INTO categoria VALUES(null, 'Deportes', 'Comparte noticias y resultados de tus deportes favoritos.');
+INSERT INTO categoria VALUES(null, 'Videojuegos', 'Discute juegos, trucos y consejos con otros jugadores.');
+INSERT INTO categoria VALUES(null, 'Música', 'Explora géneros, artistas y comparte tus canciones favoritas.');
 
 INSERT INTO usuario VALUES(null, 'PruebaUser', 'prueba@user');
 

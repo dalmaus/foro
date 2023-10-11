@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Ubuntu', sans-serif;
+}
+#lista-categorias, h1{
+    text-align: center;
+}
+#lista-categorias{
+    list-style: none;
+}
+#lista-categorias li{
+    padding: 15px;
+    border: 1px solid burlywood;
+}
+#lista-categorias li{
+    display: inline-block;
+}

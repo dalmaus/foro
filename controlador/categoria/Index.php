@@ -1,5 +1,5 @@
 <?php
-    require_once "../otros/Utilidades.php";
+    require_once "../Utilidades.php";
 
     $connection = getBdConnection();
     $statement = $connection->prepare('SELECT * FROM categoria');
@@ -9,5 +9,4 @@
     header("Content-Type: application/json");
     header("Access-Control-Allow-Origin: *");
     echo json_encode($categorias, JSON_UNESCAPED_UNICODE);
-
 ?>
