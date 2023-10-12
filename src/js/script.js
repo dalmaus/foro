@@ -1,13 +1,16 @@
-const urlApi = "http://localhost";
-const categoriaIndexEndpoint = "/EntornoServidor/foro/controlador/categoria/";
+export const urlApi = "http://localhost/EntornoServidor/foro/controlador";
 
-async function fetchEndpoint(endpoint) {
-    const response = await fetch(urlApi + endpoint);
+//ENDPOINTS
+export const categoriaIndex = "/categoria/Index.php"; //all
+export const categoriaHilos = "/mixto/CategoriaHilosShow.php";
+
+export async function fetchEndpoint(endpoint, query = "") {
+    const response = await fetch(urlApi + endpoint + query);
     return await response.json();
 }
 export async function printCategorias(){
     const list = document.getElementById("list-categorias");
-    const categorias = await fetchEndpoint(categoriaIndexEndpoint);
+    const categorias = await fetchEndpoint(categoriaIndex);
 
     for(let categoria of categorias){
         const li = document.createElement("li");
@@ -15,7 +18,7 @@ export async function printCategorias(){
         div.classList.add("list-item");
         const catName = document.createElement("h2");
         const anchor = document.createElement("a");
-        anchor.href = `../categoria?categoria=${categoria.id}`;
+        anchor.href = `categoria.html?categoria=${categoria.id}`;
 
         anchor.textContent = categoria.nombre;
         const catDesc = document.createElement("p");
