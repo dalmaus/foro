@@ -2,7 +2,7 @@ export const urlApi = "http://localhost/EntornoServidor/foro/controlador";
 
 //ENDPOINTS
 export const categoriaIndex = "/categoria/Index.php"; //all
-export const categoriaHilos = "/mixto/CategoriaHilosShow.php";
+export const categoriaHilos = "/categoria/CategoriaHilosShow.php";
 
 export async function fetchEndpoint(endpoint, query = "") {
     const response = await fetch(urlApi + endpoint + query);

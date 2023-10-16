@@ -1,0 +1,403 @@
+<?php
+
+require_once "../categoria/Categoria.php";
+
+class DAO
+{
+    private static ?PDO $conexion = null;
+
+    private static function obtenerPdoConexionBD(): PDO
+    {
+        $servidor = "localhost";
+        $identificador = "root";
+        $contrasenna = "";
+        $bd = "foro"; // Schema
+        $opciones = [
+            PDO::ATTR_EMULATE_PREPARES => false, // Modo emulación desactivado para prepared statements "reales"
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Que los errores salgan como excepciones.
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // El modo de fetch que queremos por defecto.
+        ];
+
+        try {
+            $pdo = new PDO("mysql:host=$servidor;dbname=$bd;charset=utf8", $identificador, $contrasenna, $opciones);
+        } catch (Exception $e) {
+            error_log("Error al conectar: " . $e->getMessage());
+            echo "\n\nError al conectar:\n" . $e->getMessage();
+            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        }
+
+        return $pdo;
+    }
+
+    private static function garantizarConexion()
+    {
+        if (Self::$conexion == null) {
+            Self::$conexion = Self::obtenerPdoConexionBd();
+        }
+    }
+
+    private static function ejecutarConsulta(string $sql, array $parametros): array
+    {
+        Self::garantizarConexion();
+
+        $select = Self::$conexion->prepare($sql);
+        $select->execute($parametros);
+        return $select->fetchAll(); // Se devuelve "el $rs"
+    }
+
+    // Devuelve:
+    //   - null: si ha habido un error
+    //   - int: el id autogenerado para el nuevo registro, si todo bien.
+    private static function ejecutarInsert(string $sql, array $parametros): ?int
+    {
+        Self::garantizarConexion();
+
+        $insert = Self::$conexion->prepare($sql);
+        $sqlConExito = $insert->execute($parametros);
+
+        if (!$sqlConExito) return null;
+        else return Self::$conexion->lastInsertId();
+    }
+
+    // Ejecuta un Update o un Delete.
+    // Devuelve:
+    //   - null: si ha habido un error
+    //   - 0, 1 u otro número positivo: OK (no errores) y estas son las filas afectadas.
+    private static function ejecutarUpdel(string $sql, array $parametros): ?int
+    {
+        Self::garantizarConexion();
+
+        $updel = Self::$conexion->prepare($sql);
+        $sqlConExito = $updel->execute($parametros);
+
+        if (!$sqlConExito) return null;
+        else return $updel->rowCount();
+    }
+
+
+
+
+    /* CATEGORÍA */
+
+
+
+
+
+    private static function categoriaCrearDesdeFila(array $fila): Categoria
+    {
+        return new Categoria($fila["id"], $fila["nombre"], $fila["descripcion"]);
+    }
+
+    public static function categoriaObtenerPorId(int $id): ?Categoria
+    {
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM categoria WHERE id=?",
+            [$id]
+        );
+
+        if ($rs) {
+            $fila = $rs[0];
+            $categoria = Self::categoriaCrearDesdeFila($fila);
+            return $categoria;
+        } else {
+            return null;
+        }
+    }
+
+    public static function categoriaObtenerTodas(): array
+    {
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM categoria ORDER BY nombre",
+            []
+        );
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $categoria = Self::categoriaCrearDesdeFila($fila);
+            array_push($datos, $categoria);
+        }
+
+        return $datos;
+    }
+
+    public static function categoriaCrear(string $nombre, string $descripcion): ?Categoria
+    {
+        $idAutogenerado = Self::ejecutarInsert(
+            "INSERT INTO categoria (nombre, descripcion) VALUES (?, ?)",
+            [$nombre, $descripcion]
+        );
+
+        if ($idAutogenerado == null) return null;
+        else return Self::categoriaObtenerPorId($idAutogenerado);
+    }
+
+    public static function categoriaActualizar(Categoria $categoria): ?Categoria
+    {
+        $filasAfectadas = Self::ejecutarUpdel(
+            "UPDATE categoria SET nombre=?, descripcion=? WHERE id=?",
+            [$categoria->getNombre(), $categoria->getDescripcion(), $categoria->getId()]
+        );
+
+        if ($filasAfectadas == null) return null;
+        else return $categoria;
+    }
+
+    public static function categoriaEliminarPorId(int $id): bool
+    {
+        $filasAfectadas = Self::ejecutarUpdel(
+            "DELETE FROM categoria WHERE id=?",
+            [$id]
+        );
+
+        return ($filasAfectadas == 1);
+    }
+
+    public static function categoriaEliminar(Categoria $categoria): bool
+    {
+        return Self::categoriaEliminarPorId($categoria->getId());
+    }
+
+
+
+
+    /* USUARIO */
+
+
+
+
+    private static function usuarioCrearDesdeFila(array $fila): Usuario
+    {
+        return new Usuario((int)$fila["id"], $fila["nombre"], $fila["correo"]);
+    }
+
+    public static function usuarioObtenerPorId(int $id): ?Usuario
+    {
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM usuario WHERE id=?",
+            [$id]
+        );
+
+        if ($rs) return Self::usuarioCrearDesdeFila($rs[0]);
+        else return null;
+    }
+
+    public static function usuarioObtenerTodas(): array
+    {
+        $datos = [];
+
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM usuario ORDER BY nombre, correo",
+            []
+        );
+
+        foreach ($rs as $fila) {
+            $usuario = Self::usuarioCrearDesdeFila($fila);
+            array_push($datos, $usuario);
+        }
+
+        return $datos;
+    }
+
+    public static function usuarioCrear(string $nombre, string $correo): ?Usuario
+    {
+        $idAutogenerado = Self::ejecutarInsert(
+            "INSERT INTO usuario (nombre, correo) VALUES (?, ?)",
+            [$nombre, $correo]
+        );
+
+        if ($idAutogenerado == null) return null;
+        else return Self::personaObtenerPorId($idAutogenerado);
+    }
+
+    public static function usuarioActualizar(Usuario $usuario): ?Usuario
+    {
+        $filasAfectadas = Self::ejecutarUpdel(
+            "UPDATE persona SET nombre=?, correo=? WHERE id=?",
+            [$usuario->getNombre(), $usuario->getCorreo()]
+        );
+
+        if ($filasAfectadas == null) return null;
+        else return $usuario;
+    } // TODO error del profe
+
+    public static function usuarioEliminarPorId(int $id): bool
+    {
+        $filasAfectadas = Self::ejecutarUpdel(
+            "DELETE FROM usuario WHERE id=?",
+            [$id]
+        );
+
+        return ($filasAfectadas == 1);
+    }
+
+    public static function usuarioEliminar(Usuario $usuario): bool
+    {
+        return Self::usuarioEliminarPorId($usuario->getId());
+    }
+
+    public static function hiloObtenerPorId(int $id): ?Categoria
+    {
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM hilo WHERE id=?",
+            [$id]
+        );
+
+        if ($rs) {
+            $fila = $rs[0];
+            $hilo = Self::hiloCrearDesdeFila($fila);
+            return $hilo;
+        } else {
+            return null;
+        }
+    }
+
+
+
+
+    /*  HILO */
+
+
+
+    private static function hiloCrearDesdeFila(array $fila): Hilo
+    {
+        return new Hilo($fila["id"], $fila["usuario_id"], $fila["categoria_id"], $fila["titulo"]);
+    }
+
+    public static function hiloObtenerTodas(): array
+    {
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM hilo ORDER BY titulo",
+            []
+        );
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $hilo = Self::hiloCrearDesdeFila($fila);
+            array_push($datos, $hilo);
+        }
+
+        return $datos;
+    }
+
+    public static function hiloCrear(int $usuario_id, int $categoria_id, string $titulo): ?Hilo
+    {
+        $idAutogenerado = Self::ejecutarInsert(
+            "INSERT INTO hilo (usuario_id, categoria_id, titulo) VALUES (?, ?, ?)",
+            [$usuario_id, $categoria_id, $titulo]
+        );
+
+        if ($idAutogenerado == null) return null;
+        else return Self::hiloObtenerPorId($idAutogenerado);
+    }
+
+    public static function hiloActualizar(Hilo $hilo): ?Hilo
+    {
+        $filasAfectadas = Self::ejecutarUpdel(
+            "UPDATE hilo SET usuario_id=?, categoria_id=?, titulo=? WHERE id=?",
+            [$hilo->getUsuarioId(), $hilo->getCategoriaId(), $hilo->getTitulo()]
+        );
+
+        if ($filasAfectadas == null) return null;
+        else return $hilo;
+    }
+
+    public static function hiloEliminarPorId(int $id): bool
+    {
+        $filasAfectadas = Self::ejecutarUpdel(
+            "DELETE FROM hilo WHERE id=?",
+            [$id]
+        );
+
+        return ($filasAfectadas == 1);
+    }
+
+    public static function hiloEliminar(Hilo $hilo): bool
+    {
+        return Self::hiloEliminarPorId($hilo->getId());
+    }
+
+
+
+
+    /* MENSAJE */
+
+
+
+
+
+
+    private static function mensajeCrearDesdeFila(array $fila): Mensaje
+    {
+        return new Mensaje($fila["id"], $fila["usuario_id"], $fila["hilo_id"],
+            $fila["titulo"], $fila["contenido"], $fila["fecha"]);
+    }
+
+    public static function mensajeObtenerTodas(): array
+    {
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM mensaje ORDER BY contenido",
+            []
+        );
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $mensaje = Self::mensajeCrearDesdeFila($fila);
+            array_push($datos, $mensaje);
+        }
+
+        return $datos;
+    }
+
+    public static function mensajeCrear(int $usuario_id, int $hilo_id, string $titulo, string $contenido, DateTime $fecha): ?Hilo
+    {
+        $idAutogenerado = Self::ejecutarInsert(
+            "INSERT INTO hilo (usuario_id, hilo_id, titulo, contenido, fecha) VALUES (?, ?, ?, ?, ?)",
+            [$usuario_id, $hilo_id, $titulo, $contenido, $fecha]
+        );
+
+        if ($idAutogenerado == null) return null;
+        else return Self::mensajeObtenerPorId($idAutogenerado);
+    }
+
+    public static function mensajeActualizar(Mensaje $mensaje): ?Mensaje
+    {
+        $filasAfectadas = Self::ejecutarUpdel(
+            "UPDATE mensaje SET usuario_id=?, hilo_id=?, titulo=?, contenido=?, fecha=? WHERE id=?",
+            [$mensaje->getUsuarioId(), $mensaje->getHiloId(), $mensaje->getTitulo(),
+                $mensaje->getContenido(), $mensaje->getFecha(), $mensaje->getId()]
+        );
+
+        if ($filasAfectadas == null) return null;
+        else return $mensaje;
+    }
+
+    public static function mensajeEliminarPorId(int $id): bool
+    {
+        $filasAfectadas = Self::ejecutarUpdel(
+            "DELETE FROM mensaje WHERE id=?",
+            [$id]
+        );
+
+        return ($filasAfectadas == 1);
+    }
+
+    public static function mensajeEliminar(Mensaje $mensaje): bool
+    {
+        return Self::mensajeEliminarPorId($mensaje->getId());
+    }
+
+    public static function hiloObtenerPorCategoria(int $id)
+    {
+        return Self::ejecutarConsulta('SELECT c.id, c.nombre, h.id as h_id, h.titulo as h_titulo, h.usuario_id as h_usuario_id, u.nombre as u_nombre
+            FROM categoria c 
+            INNER JOIN hilo h
+            ON c.id = h.categoria_id
+            INNER JOIN usuario u
+            ON h.usuario_id = u.id
+            WHERE c.id = ?',
+        [$id]);
+    }
+}
+
+
+

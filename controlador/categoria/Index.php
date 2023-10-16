@@ -1,10 +1,7 @@
 <?php
-    require_once "../Utilidades.php";
+    require_once "../mixto/DAO.php";
 
-    $connection = getBdConnection();
-    $statement = $connection->prepare('SELECT * FROM categoria');
-    $statement->execute();
-    $categorias = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $categorias = DAO::categoriaObtenerTodas();
 
     header("Content-Type: application/json");
     header("Access-Control-Allow-Origin: *");
