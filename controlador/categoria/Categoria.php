@@ -1,8 +1,11 @@
 <?php
 
-class Categoria implements JsonSerializable
+require_once "../_mixto/Dato.php";
+require_once "../_mixto/DAO.php";
+require_once "../hilo/Hilo.php";
+
+class Categoria extends Dato implements JsonSerializable
 {
-    private int $id;
     private string $nombre;
     private string $descripcion;
     private ?array $hilos = null;
@@ -67,11 +70,31 @@ class Categoria implements JsonSerializable
         $this->descripcion = $descripcion;
     }
 
+    public static function obtenerTodas(): array
+    {
+        return DAO::categoriaObtenerTodas();
+    }
+
+    public static function obtenerPorId(int $id): ?Categoria
+    {
+        return DAO::categoriaObtenerPorId($id);
+    }
+
     public function obtenerHilos(): array
     {
-        if ($this->hilos == null) $personasPertenecientes = DAO::hiloObtenerPorCategoria($this->id);
+        if ($this->hilos == null) $this->hilos = DAO::hilosObtenerPorCategoria($this->id);
+        return $this->hilos;
+    }
 
-        return $personasPertenecientes;
+    public function obtenerHilosConUsuario(): array
+    {
+        $this->hilos = $this->obtenerHilos();
+
+        foreach($this->hilos as $hilo){
+            $hilo->obtenerUsuario();
+        }
+
+        return $this->hilos;
     }
     /**
      * @inheritDoc
@@ -81,7 +104,8 @@ class Categoria implements JsonSerializable
         return [
           "id" => $this->id,
           "nombre" => $this->nombre,
-          "descripcion" => $this->descripcion
+          "descripcion" => $this->descripcion,
+            "hilos" => $this->hilos,
         ];
     }
 }

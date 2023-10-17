@@ -8,18 +8,18 @@ body{
 h1{
     margin: 45px;
 }
-#list-categorias{
+#lista-categoria{
     list-style: none;
     display: flex;
     flex-direction: column;
     width: 40%;
     margin: 0 auto;
 }
-#list-categorias, h1{
+#lista-categoria, h1{
     text-align: center;
 }
 
-#list-categorias li{
+#lista-categoria li{
     display: inline-block;
     padding: 15px;
     border: 1px solid burlywood;
@@ -27,4 +27,10 @@ h1{
 .list-item a{
     text-decoration: none;
     color: red;
+}
+.lista-hilos{
+    text-align: center;
+}
+.lista-hilos a{
+    text-decoration: none;
 }

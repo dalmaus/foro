@@ -107,7 +107,7 @@ class DAO
     public static function categoriaObtenerTodas(): array
     {
         $rs = Self::ejecutarConsulta(
-            "SELECT * FROM categoria ORDER BY nombre",
+            "SELECT * FROM categoria ORDER BY id",
             []
         );
 
@@ -172,12 +172,12 @@ class DAO
 
     public static function usuarioObtenerPorId(int $id): ?Usuario
     {
-        $rs = Self::ejecutarConsulta(
+        $rs = self::ejecutarConsulta(
             "SELECT * FROM usuario WHERE id=?",
             [$id]
         );
 
-        if ($rs) return Self::usuarioCrearDesdeFila($rs[0]);
+        if ($rs) return self::usuarioCrearDesdeFila($rs[0]);
         else return null;
     }
 
@@ -244,7 +244,7 @@ class DAO
 
         if ($rs) {
             $fila = $rs[0];
-            $hilo = Self::hiloCrearDesdeFila($fila);
+            $hilo = self::hiloCrearDesdeFila($fila);
             return $hilo;
         } else {
             return null;
@@ -260,19 +260,19 @@ class DAO
 
     private static function hiloCrearDesdeFila(array $fila): Hilo
     {
-        return new Hilo($fila["id"], $fila["usuario_id"], $fila["categoria_id"], $fila["titulo"]);
+        return new Hilo($fila["id"], $fila["usuario_id"], $fila["categoria_id"], $fila["titulo"], $fila["fecha"]);
     }
 
     public static function hiloObtenerTodos(): array
     {
         $rs = Self::ejecutarConsulta(
-            "SELECT * FROM hilo ORDER BY titulo",
+            "SELECT * FROM hilo ORDER BY fecha",
             []
         );
 
         $datos = [];
         foreach ($rs as $fila) {
-            $hilo = Self::hiloCrearDesdeFila($fila);
+            $hilo = self::hiloCrearDesdeFila($fila);
             array_push($datos, $hilo);
         }
 
@@ -281,13 +281,13 @@ class DAO
 
     public static function hiloCrear(int $usuario_id, int $categoria_id, string $titulo): ?Hilo
     {
-        $idAutogenerado = Self::ejecutarInsert(
+        $idAutogenerado = self::ejecutarInsert(
             "INSERT INTO hilo (usuario_id, categoria_id, titulo) VALUES (?, ?, ?)",
             [$usuario_id, $categoria_id, $titulo]
         );
 
         if ($idAutogenerado == null) return null;
-        else return Self::hiloObtenerPorId($idAutogenerado);
+        else return self::hiloObtenerPorId($idAutogenerado);
     }
 
     public static function hiloActualizar(Hilo $hilo): ?Hilo
@@ -335,7 +335,7 @@ class DAO
     public static function mensajesObtenerTodos(): array
     {
         $rs = Self::ejecutarConsulta(
-            "SELECT * FROM mensaje ORDER BY contenido",
+            "SELECT * FROM mensaje ORDER BY fecha",
             []
         );
 
@@ -357,6 +357,10 @@ class DAO
 
         if ($idAutogenerado == null) return null;
         else return Self::mensajeObtenerPorId($idAutogenerado);
+    }
+
+    public static function mensajeObtenerTodos(){
+        return self::ejecutarConsulta("SELECT * FROM mensaje", []);
     }
 
     public static function mensajeActualizar(Mensaje $mensaje): ?Mensaje
@@ -386,25 +390,34 @@ class DAO
         return Self::mensajeEliminarPorId($mensaje->getId());
     }
 
-    public static function hiloObtenerPorCategoria(int $id): array
+    public static function hilosObtenerPorCategoria(int $id): array
     {
-        return Self::ejecutarConsulta('SELECT c.id, c.nombre, h.id as h_id, h.titulo as h_titulo, h.usuario_id as h_usuario_id, u.nombre as u_nombre
-            FROM categoria c 
-            INNER JOIN hilo h
-            ON c.id = h.categoria_id
-            INNER JOIN usuario u
-            ON h.usuario_id = u.id
-            WHERE c.id = ?',
+        $rs = self::ejecutarConsulta('SELECT *
+            FROM hilo 
+            WHERE categoria_id=?',
         [$id]);
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $hilo = Self::hiloCrearDesdeFila($fila);
+            array_push($datos, $hilo);
+        }
+        return $datos;
     }
 
     public static function mensajesObtenerPorHilo(int $id): array
     {
-        return self::ejecutarConsulta('SELECT * FROM mensaje m
-        INNER JOIN hilo h
-        ON h.id = m.hilo_id
-        WHERE h.id=?
-        ', [$id]);
+        $rs = self::ejecutarConsulta('SELECT * FROM mensaje 
+        WHERE id=?
+        ORDER BY fecha',
+            [$id]);
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $mensaje = self::mensajeCrearDesdeFila($fila);
+            array_push($datos, $mensaje);
+        }
+        return $datos;
     }
 }
 

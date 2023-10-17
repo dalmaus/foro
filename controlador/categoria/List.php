@@ -1,9 +1,8 @@
 <?php
+    require_once "Categoria.php";
     require_once "../_mixto/DAO.php";
     require_once "../_mixto/Utilidades.php";
 
-    $categorias = DAO::categoriaObtenerTodas();
-
     headers();
-    echo json_encode($categorias, JSON_UNESCAPED_UNICODE);
+    echo json_encode(Categoria::obtenerTodas(), JSON_UNESCAPED_UNICODE);
 ?>

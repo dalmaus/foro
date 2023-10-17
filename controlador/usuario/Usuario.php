@@ -54,6 +54,9 @@ class Usuario extends Dato implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        // TODO: Implement jsonSerialize() method.
+        return [
+          "id" => $this->id,
+          "nombre" => $this->nombre,
+        ];
     }
 }

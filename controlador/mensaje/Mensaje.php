@@ -2,6 +2,7 @@
 
 require_once "../_mixto/Dato.php";
 require_once "../_mixto/DAO.php";
+require_once "../usuario/Usuario.php";
 
 class Mensaje extends Dato implements JsonSerializable
 {
@@ -10,7 +11,8 @@ class Mensaje extends Dato implements JsonSerializable
     private int $hilo_id;
     private ?string $titulo = null; //cambiar en BBDD
     private string $contenido;
-    private DateTime $fecha;
+    private ?Usuario $usuario = null;
+    private string $fecha;
 
     /**
      * @param int $usuario_id
@@ -19,7 +21,7 @@ class Mensaje extends Dato implements JsonSerializable
      * @param string $contenido
      * @param DateTime $fecha
      */
-    public function __construct(int $id, int $usuario_id, int $hilo_id, ?string $titulo, string $contenido, DateTime $fecha)
+    public function __construct(int $id, int $usuario_id, int $hilo_id, ?string $titulo, string $contenido, string $fecha)
     {
         parent::__construct($id);
         $this->usuario_id = $usuario_id;
@@ -109,10 +111,17 @@ class Mensaje extends Dato implements JsonSerializable
         $this->fecha = $fecha;
     }
 
-    public static function obtenerTodos(){
-        return DAO::mensajesObtenerTodos();
+    public static function obtenerTodos(): array
+    {
+        return DAO::mensajeObtenerTodos();
     }
 
+    public function obtenerUsuario(): ?Usuario
+    {
+        if($this->usuario === null) $this->usuario = DAO::usuarioObtenerPorId($this->usuario_id);
+
+        return $this->usuario;
+    }
 
     /**
      * @inheritDoc
@@ -120,6 +129,13 @@ class Mensaje extends Dato implements JsonSerializable
 
     public function jsonSerialize()
     {
-        // TODO: Implement jsonSerialize() method.
+        return [
+          "id" => $this->usuario_id,
+            "usuario_id" => $this->usuario_id,
+            "titulo" => $this->titulo,
+            "contenido" => $this->contenido,
+            "usuario" => $this->usuario,
+            "fecha" => $this->fecha,
+        ];
     }
 }

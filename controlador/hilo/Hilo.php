@@ -2,6 +2,8 @@
 
 require_once "../_mixto/Dato.php";
 require_once "../_mixto/DAO.php";
+require_once "../usuario/Usuario.php";
+require_once "../mensaje/Mensaje.php";
 
 class Hilo extends Dato implements JsonSerializable
 {
@@ -9,6 +11,8 @@ class Hilo extends Dato implements JsonSerializable
     private int $usuario_id;
     private int $categoria_id;
     private string $titulo;
+    private string $fecha;
+    private ?Usuario $usuario = null;
     private ?array $mensajes = null;
 
     /**
@@ -17,12 +21,13 @@ class Hilo extends Dato implements JsonSerializable
      * @param int $categoria_id
      * @param string $titulo
      */
-    public function __construct(int $id, int $usuario_id, int $categoria_id, string $titulo)
+    public function __construct(int $id, int $usuario_id, int $categoria_id, string $titulo, string $fecha)
     {
         parent::__construct($id);
         $this->usuario_id = $usuario_id;
         $this->categoria_id = $categoria_id;
         $this->titulo = $titulo;
+        $this->fecha = $fecha;
     }
 
     /**
@@ -90,6 +95,23 @@ class Hilo extends Dato implements JsonSerializable
         return $this->mensajes;
     }
 
+    public function obtenerMensajesConUsuario(): array
+    {
+        $this->mensajes = $this->obtenerMensajes();
+
+        foreach($this->mensajes as $mensaje){
+            $mensaje->obtenerUsuario();
+        }
+
+        return $this->mensajes;
+    }
+
+    public function obtenerUsuario(): ?Usuario
+    {
+        if($this->usuario === null) $this->usuario = DAO::usuarioObtenerPorId($this->usuario_id);
+        return $this->usuario;
+    }
+
     public function jsonSerialize()
     {
         return [
@@ -97,6 +119,8 @@ class Hilo extends Dato implements JsonSerializable
             "usuario_id" => $this->usuario_id,
             "categoria_id" => $this->categoria_id,
             "titulo" => $this->titulo,
+            "fecha" => $this->fecha,
+            "usuario" => $this->usuario,
             "mensajes" => $this->mensajes,
         ];
     }
