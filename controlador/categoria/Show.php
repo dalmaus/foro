@@ -1,5 +1,5 @@
 <?php
-    require_once "../mixto/DAO.php";
+    require_once "../_mixto/DAO.php";
 
     $categoriaId = $_REQUEST["categoria"] ?? null;
 

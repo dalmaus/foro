@@ -1,11 +1,14 @@
 <?php
 
+require_once "../_mixto/Dato.php";
+require_once "../_mixto/DAO.php";
+
 class Mensaje extends Dato implements JsonSerializable
 {
 
     private int $usuario_id;
     private int $hilo_id;
-    private string $titulo;
+    private ?string $titulo = null; //cambiar en BBDD
     private string $contenido;
     private DateTime $fecha;
 
@@ -16,7 +19,7 @@ class Mensaje extends Dato implements JsonSerializable
      * @param string $contenido
      * @param DateTime $fecha
      */
-    public function __construct(int $id, int $usuario_id, int $hilo_id, string $titulo, string $contenido, DateTime $fecha)
+    public function __construct(int $id, int $usuario_id, int $hilo_id, ?string $titulo, string $contenido, DateTime $fecha)
     {
         parent::__construct($id);
         $this->usuario_id = $usuario_id;
@@ -104,6 +107,10 @@ class Mensaje extends Dato implements JsonSerializable
     public function setFecha(DateTime $fecha): void
     {
         $this->fecha = $fecha;
+    }
+
+    public static function obtenerTodos(){
+        return DAO::mensajesObtenerTodos();
     }
 
 

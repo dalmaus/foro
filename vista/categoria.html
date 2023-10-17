@@ -12,7 +12,7 @@
 
         const url = new URL(location.href);
         const categoriaId = url.searchParams.get('categoria');
-        console.log(categoriaId)
+
         const data = await fetchEndpoint(categoriaHilos, `?categoria=${categoriaId}`);
         console.log(data);
     </script>

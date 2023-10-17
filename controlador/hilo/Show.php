@@ -1,14 +1,7 @@
 <?php
-    require_once "../Utilidades.php";
+    require_once "Hilo.php";
+    require_once "../_mixto/Utilidades.php";
 
-    $hiloId = $_REQUEST["hilo"] ?? null;
-
-    $connection = getBdConnection();
-    $statement = $connection->prepare('SELECT * FROM hilo WHERE id=?');
-    $statement->execute([$hiloId]);
-    $hilo = $statement->fetch(PDO::FETCH_ASSOC);
-
-    header("Content-Type: application/json");
-    header("Access-Control-Allow-Origin: *");
-    echo json_encode($hilo, JSON_UNESCAPED_UNICODE);
+    headers();
+    echo json_encode(Hilo::obtenerPorId($_REQUEST["hilo"]), JSON_UNESCAPED_UNICODE);
 ?>

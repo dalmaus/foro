@@ -235,7 +235,7 @@ class DAO
         return Self::usuarioEliminarPorId($usuario->getId());
     }
 
-    public static function hiloObtenerPorId(int $id): ?Categoria
+    public static function hiloObtenerPorId(int $id): ?Hilo
     {
         $rs = Self::ejecutarConsulta(
             "SELECT * FROM hilo WHERE id=?",
@@ -263,7 +263,7 @@ class DAO
         return new Hilo($fila["id"], $fila["usuario_id"], $fila["categoria_id"], $fila["titulo"]);
     }
 
-    public static function hiloObtenerTodas(): array
+    public static function hiloObtenerTodos(): array
     {
         $rs = Self::ejecutarConsulta(
             "SELECT * FROM hilo ORDER BY titulo",
@@ -332,7 +332,7 @@ class DAO
             $fila["titulo"], $fila["contenido"], $fila["fecha"]);
     }
 
-    public static function mensajeObtenerTodas(): array
+    public static function mensajesObtenerTodos(): array
     {
         $rs = Self::ejecutarConsulta(
             "SELECT * FROM mensaje ORDER BY contenido",
@@ -386,7 +386,7 @@ class DAO
         return Self::mensajeEliminarPorId($mensaje->getId());
     }
 
-    public static function hiloObtenerPorCategoria(int $id)
+    public static function hiloObtenerPorCategoria(int $id): array
     {
         return Self::ejecutarConsulta('SELECT c.id, c.nombre, h.id as h_id, h.titulo as h_titulo, h.usuario_id as h_usuario_id, u.nombre as u_nombre
             FROM categoria c 
@@ -396,6 +396,15 @@ class DAO
             ON h.usuario_id = u.id
             WHERE c.id = ?',
         [$id]);
+    }
+
+    public static function mensajesObtenerPorHilo(int $id): array
+    {
+        return self::ejecutarConsulta('SELECT * FROM mensaje m
+        INNER JOIN hilo h
+        ON h.id = m.hilo_id
+        WHERE h.id=?
+        ', [$id]);
     }
 }
 

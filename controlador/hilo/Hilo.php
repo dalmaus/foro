@@ -1,11 +1,15 @@
 <?php
 
+require_once "../_mixto/Dato.php";
+require_once "../_mixto/DAO.php";
+
 class Hilo extends Dato implements JsonSerializable
 {
 
     private int $usuario_id;
     private int $categoria_id;
     private string $titulo;
+    private ?array $mensajes = null;
 
     /**
      * @param int $id
@@ -69,11 +73,31 @@ class Hilo extends Dato implements JsonSerializable
         $this->titulo = $titulo;
     }
 
+    public static function obtenerTodos(): array
+    {
+        return DAO::hiloObtenerTodos();
+    }
 
+    public static function obtenerPorId(int $id): ?Hilo
+    {
+        return DAO::hiloObtenerPorId($id);
+    }
 
+    public function obtenerMensajes(): array
+    {
+        if ($this->mensajes == null) $this->mensajes = DAO::mensajesObtenerPorHilo($this->id);
+
+        return $this->mensajes;
+    }
 
     public function jsonSerialize()
     {
-        // TODO: Implement jsonSerialize() method.
+        return [
+            "id" => $this->id,
+            "usuario_id" => $this->usuario_id,
+            "categoria_id" => $this->categoria_id,
+            "titulo" => $this->titulo,
+            "mensajes" => $this->mensajes,
+        ];
     }
 }

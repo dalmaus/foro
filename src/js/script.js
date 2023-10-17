@@ -1,8 +1,8 @@
 export const urlApi = "http://localhost/EntornoServidor/foro/controlador";
 
 //ENDPOINTS
-export const categoriaIndex = "/categoria/Index.php"; //all
-export const categoriaHilos = "/categoria/CategoriaHilosShow.php";
+export const categoriaIndex = "/categoria/List.php"; //all
+export const categoriaHilos = "/categoria/HilosCategoriaList.php";
 
 export async function fetchEndpoint(endpoint, query = "") {
     const response = await fetch(urlApi + endpoint + query);
