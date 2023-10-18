@@ -1,14 +1,15 @@
-import Footer from "../components/Footer";
+import {Link} from "react-router-dom";
+
 
 function Categoria({ categoria }){
 
-    // const id = categoria.id;
+    const id = categoria.id;
     const nombre = categoria.nombre;
     const descripcion = categoria.descripcion;
 
     return(
         <div class="categoria-item">
-            <h2><a>{ nombre }</a></h2>
+            <h2><Link to={`/categoria/${id}`}>{ nombre }</Link></h2>
             <p>{ descripcion }</p>
         </div>
     );
@@ -32,7 +33,7 @@ function ListaCategorias({ categorias }){
     );
 }
 
-function Index({ categorias }){
+function Home({ categorias }){
 
     return (
         <div>
@@ -42,4 +43,4 @@ function Index({ categorias }){
     );
 }
 
-export default Index;
+export default Home;

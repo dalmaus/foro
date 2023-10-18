@@ -6,7 +6,9 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+a{
+  text-decoration: none;
+}
 footer{
   background-color: #c9c9c9;
 }
