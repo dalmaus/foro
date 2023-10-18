@@ -90,6 +90,7 @@ class Categoria extends Dato implements JsonSerializable
     {
         $this->hilos = $this->obtenerHilos();
 
+        //optimizar
         foreach($this->hilos as $hilo){
             $hilo->obtenerUsuario();
         }

@@ -4,7 +4,7 @@
     require_once "../_mixto/Utilidades.php";
 
     $hilo = Hilo::obtenerPorId($_REQUEST["hilo"]);
-    $hilo->obtenerMensajes();
+    $hilo->obtenerMensajesConUsuario();
 
     headers();
     echo json_encode($hilo, JSON_UNESCAPED_UNICODE);
