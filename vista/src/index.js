@@ -1,17 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 
+import './index.css';
+
+import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Home, {loader as homeLoader} from "./views/Home";
+import Categoria, {loader as categoriaLoader} from "./views/Categoria";
+import Root from "./views/Root";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Root />,
+        errorElement: <div>Algo ha ido mal</div>,
+        children: [{
+            path: "/",
+            element: <Home />,
+            loader: homeLoader,
+            errorElement: <div>Algo ha ido mal</div>,
+        }],
+    },
+    {
+        path: "categorias/:categoriaId",
+        element: <Categoria />,
+        loader: categoriaLoader,
+    }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <App />
-      </BrowserRouter>
+      <RouterProvider router={router} />
   </React.StrictMode>
 );
 

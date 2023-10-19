@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -11,3 +18,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.home{
+  margin: 0 auto;
+  width: 30%;
+}
+.home h1{
+  text-align: left;
+  padding: 0 10px;
+}
+.home .lista-categorias{
+  border: 1px solid #cec9c9;
+  border-radius: 6px;
+  padding: 10px 15px 25px;
+}
+.home .lista-categorias a{
+  text-decoration: none;
+}
+
+.home .categorias-item{
+  padding: 12px 0;
+}
+
+.home .categorias-item h2{
+  padding: 0 0 3px 0;
+}
+
+.home .descripcion, h2{
+  text-align: left;
+}
+@media (max-width: 1150px){
+  .home{
+    width: 45%;
+  }
+}
+@media (max-width: 600px){
+  .home{
+    width: 75%;
+  }
+}
+@media (max-width: 450px){
+  .home{
+    width: 90%;
+    text-align: center;
+  }
+}
+
+footer{
+  padding: 0 10px;
+}
+/*body{*/
+/*  background-color: black;*/
+/*}*/
