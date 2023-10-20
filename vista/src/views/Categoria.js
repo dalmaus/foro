@@ -1,6 +1,7 @@
 import {Link, useLoaderData} from "react-router-dom";
 import {getCategoria} from "../api/CategoriaApi";
 import NuevoPost from "../components/NuevoPost";
+import {useState} from "react";
 
 export async function loader({params}) {
     const categoria = getCategoria(params.categoriaId);
@@ -8,7 +9,8 @@ export async function loader({params}) {
 }
 
 function Categoria(){
-    const categoria = useLoaderData();
+    const categoriaDatos = useLoaderData();
+    const [categoria, setCategoria] = useState(categoriaDatos);
     return(
         <div className="categoria card">
             <div className="titulo-button">
@@ -16,7 +18,7 @@ function Categoria(){
                 <button>Nuevo tema</button>
             </div>
             <ListaHilos hilos={categoria.hilos}/>
-            <NuevoPost datos={categoria.id}/>
+            <NuevoPost datos={categoria} setDatos={setCategoria}/>
         </div>
     );
 }

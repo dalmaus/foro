@@ -112,6 +112,13 @@ class Hilo extends Dato implements JsonSerializable
         return $this->usuario;
     }
 
+    public static function crear(int $usuario_id, int $categoria_id, string $titulo): ?Hilo
+    {
+        $hilo = DAO::hiloCrear($usuario_id, $categoria_id, $titulo);
+        $hilo->obtenerUsuario();
+        return $hilo;
+    }
+
     public function jsonSerialize()
     {
         return [
