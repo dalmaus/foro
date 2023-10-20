@@ -1,8 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
-
+:root{
+  --borderColor: #cec9c9;
+  --descripcionColor: #656d76;
+}
 *{
   margin: 0;
   padding: 0;
+}
+
+#detail{
+  display: flex;
+  align-items: center;
+  height: 95vh;
 }
 
 body {
@@ -19,49 +28,98 @@ code {
     monospace;
 }
 
-.home{
+.card{
   margin: 0 auto;
   width: 30%;
 }
-.home h1{
+.card h1{
   text-align: left;
   padding: 0 10px;
 }
-.home .lista-categorias{
-  border: 1px solid #cec9c9;
+.card .lista{
+  border: 1px solid var(--borderColor);
   border-radius: 6px;
-  padding: 10px 15px 25px;
+  padding: 8px 15px 15px;
 }
-.home .lista-categorias a{
+.card .lista a{
   text-decoration: none;
 }
 
-.home .categorias-item{
+.card .item{
   padding: 12px 0;
 }
 
-.home .categorias-item h2{
+.card .item h2{
   padding: 0 0 3px 0;
 }
 
-.home .descripcion, h2{
+.card .descripcion, h2{
   text-align: left;
 }
 @media (max-width: 1150px){
-  .home{
+  .card{
     width: 45%;
   }
 }
 @media (max-width: 600px){
-  .home{
+  .card{
     width: 75%;
   }
 }
 @media (max-width: 450px){
-  .home{
+  .card{
     width: 90%;
-    text-align: center;
   }
+}
+.card h1{
+  padding: 0 15px;
+}
+.categoria .lista .titulo{
+  font-weight: 500;
+  font-size: 20px;
+}
+.categoria .titulo-button{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+}
+
+.categoria .titulo-button button{
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid var(--borderColor);
+}
+
+.categoria .lista .titulo a{
+  color: black;
+}
+.categoria .item{
+  border-bottom: 1px solid var(--borderColor);
+}
+.categoria .item:last-child{
+  border-bottom: none;
+}
+.categoria .usuario-fecha{
+  display: flex;
+  justify-content: space-between;
+  color: var(--descripcionColor);
+}
+.categoria .usuario-fecha p{
+  display: inline-block;
+}
+.categoria .usuario-fecha a{
+  color: var(--descripcionColor);
+  font-weight: 500;
+  font-size: 14px;
+}
+.categoria .usuario-fecha span{
+  font-size: 12px;
+}
+.categoria .nuevo-post{
+  border: 1px solid var(--borderColor);
+}
+.descripcion{
+  color: var(--descripcionColor);
 }
 
 footer{

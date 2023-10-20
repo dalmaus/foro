@@ -9,6 +9,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home, {loader as homeLoader} from "./views/Home";
 import Categoria, {loader as categoriaLoader} from "./views/Categoria";
 import Root from "./views/Root";
+import Hilo, {loader as hiloLoader} from "./views/Hilo";
+import Usuario, {loader as usuarioLoader} from "./views/Usuario"
 
 const router = createBrowserRouter([
     {
@@ -20,13 +22,24 @@ const router = createBrowserRouter([
             element: <Home />,
             loader: homeLoader,
             errorElement: <div>Algo ha ido mal</div>,
-        }],
+            },
+            {
+                path: "categorias/:categoriaId",
+                element: <Categoria />,
+                loader: categoriaLoader,
+            },
+            {
+                path: "hilo/:hiloId",
+                element: <Hilo />,
+                loader: hiloLoader,
+            },
+            {
+                path: "usuario/:usuarioId",
+                element: <Usuario />,
+                loader: usuarioLoader,
+            }
+        ],
     },
-    {
-        path: "categorias/:categoriaId",
-        element: <Categoria />,
-        loader: categoriaLoader,
-    }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

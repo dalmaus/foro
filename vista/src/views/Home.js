@@ -5,9 +5,9 @@ function Home(){
     const categorias = useLoaderData();
 
     return (
-        <div className="home">
-            <h1>FORO</h1>
-            <ListaCategorias categorias={ categorias } />
+        <div className="card">
+            <h1 className="titulo">FORO</h1>
+            <ListaCategorias categorias={categorias} />
         </div>
     );
 }
@@ -29,7 +29,7 @@ function ListaCategorias({ categorias }){
     );
 
     return(
-        <div className="lista-categorias">
+        <div className="lista">
             { categoriaComponentes }
         </div>
     );
@@ -42,12 +42,11 @@ function Categoria({ categoria }){
     const descripcion = categoria.descripcion;
 
     return(
-        <div className="categorias-item">
+        <div className="item">
             <h2><Link to={`/categorias/${id}`}>{ nombre }</Link></h2>
             <p className="descripcion">{ descripcion }</p>
         </div>
     );
 }
-
 
 export default Home;
