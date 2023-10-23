@@ -42,18 +42,26 @@ function ListaHilos({hilos}){
 
     const hilosComponentes = [];
 
-    hilos.forEach(hilo => {
-            hilosComponentes.push(
-                <Hilo key={hilo.id} hilo={hilo} />
-            )
-        }
-    );
+    if(hilos.length > 0) {
+        hilos.forEach(hilo => {
+                hilosComponentes.push(
+                    <Hilo key={hilo.id} hilo={hilo}/>
+                )
+            }
+        );
 
-    return(
-      <div className="categoria lista">
-          { hilosComponentes }
-      </div>
-    );
+        return (
+            <div className="categoria lista">
+                {hilosComponentes}
+            </div>
+        );
+    }else{
+        return (
+            <div className="categoria lista">
+                <h3 className="error">Aún no hay hilos en esta categoría</h3>
+            </div>
+        );
+    }
 }
 
 export default Categoria;

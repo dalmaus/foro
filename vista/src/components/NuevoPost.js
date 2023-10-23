@@ -1,11 +1,11 @@
-import {useState} from "react";
 
 function NuevoPost({datos, setDatos}) {
 
-
     const handleSubmit = async (evento) => {
         evento.preventDefault();
-        await fetch(`http://localhost/EntornoServidor/foro/controlador/hilo/Create.php?usuario_id=1&categoria_id=1&titulo=${evento.target.titulo.value}`)
+        const titulo = evento.target.titulo.value;
+        const contenido = evento.target.contenido.value;
+        await fetch(`http://localhost/EntornoServidor/foro/controlador/hilo/Create.php?usuario_id=1&categoria_id=1&titulo=${titulo}&contenido=${contenido}`)
             .then(respuesta => respuesta.json()
                 .then(hilo => {
                     datos.hilos.push(hilo);
@@ -15,6 +15,9 @@ function NuevoPost({datos, setDatos}) {
     }
     return (
         <div class="nuevo-post">
+            <div>
+                <p>Crear un nuevo tema</p>
+            </div>
             <form onSubmit={handleSubmit}>
                 <div>
                     {datos &&

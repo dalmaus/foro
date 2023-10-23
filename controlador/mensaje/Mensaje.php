@@ -123,6 +123,11 @@ class Mensaje extends Dato implements JsonSerializable
         return $this->usuario;
     }
 
+    public static function crear(int $usuario_id, int $hilo_id, ?string $titulo, string $contenido): ?Mensaje
+    {
+        return DAO::mensajeCrear($usuario_id, $hilo_id, $titulo, $contenido);
+    }
+
     /**
      * @inheritDoc
      */

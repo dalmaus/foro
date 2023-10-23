@@ -50,13 +50,13 @@ class DAO
     //   - int: el id autogenerado para el nuevo registro, si todo bien.
     private static function ejecutarInsert(string $sql, array $parametros): ?int
     {
-        Self::garantizarConexion();
+        self::garantizarConexion();
 
-        $insert = Self::$conexion->prepare($sql);
+        $insert = self::$conexion->prepare($sql);
         $sqlConExito = $insert->execute($parametros);
 
         if (!$sqlConExito) return null;
-        else return Self::$conexion->lastInsertId();
+        else return self::$conexion->lastInsertId();
     }
 
     // Ejecuta un Update o un Delete.
@@ -279,15 +279,26 @@ class DAO
         return $datos;
     }
 
-    public static function hiloCrear(int $usuario_id, int $categoria_id, string $titulo): ?Hilo
+    public static function hiloCrear(int $usuario_id, int $categoria_id, string $titulo, string $contenidoMensaje): ?Hilo
     {
-        $idAutogenerado = self::ejecutarInsert(
-            "INSERT INTO hilo (usuario_id, categoria_id, titulo) VALUES (?, ?, ?)",
-            [$usuario_id, $categoria_id, $titulo]
-        );
+        $conexion = self::obtenerPdoConexionBD();
+        $idAutogeneradoHilo = null;
+        try {
+            $conexion->beginTransaction();
 
-        if ($idAutogenerado == null) return null;
-        else return self::hiloObtenerPorId($idAutogenerado);
+            $idAutogeneradoHilo = self::ejecutarInsert(
+                "INSERT INTO hilo (usuario_id, categoria_id, titulo) VALUES (?, ?, ?)",
+                [$usuario_id, $categoria_id, $titulo]
+            );
+            self::mensajeCrear($usuario_id, $idAutogeneradoHilo, $titulo, $contenidoMensaje);
+            $conexion->commit();
+
+        }catch (PDOException $e){
+            $conexion->rollBack();
+            var_dump($conexion);
+        }
+        if ($idAutogeneradoHilo == null) return null;
+        else return self::hiloObtenerPorId($idAutogeneradoHilo);
     }
 
     public static function hiloActualizar(Hilo $hilo): ?Hilo
@@ -303,7 +314,7 @@ class DAO
 
     public static function hiloEliminarPorId(int $id): bool
     {
-        $filasAfectadas = Self::ejecutarUpdel(
+        $filasAfectadas = self::ejecutarUpdel(
             "DELETE FROM hilo WHERE id=?",
             [$id]
         );
@@ -315,8 +326,6 @@ class DAO
     {
         return Self::hiloEliminarPorId($hilo->getId());
     }
-
-
 
 
     /* MENSAJE */
@@ -342,21 +351,37 @@ class DAO
         $datos = [];
         foreach ($rs as $fila) {
             $mensaje = Self::mensajeCrearDesdeFila($fila);
-            array_push($datos, $mensaje);
+            $datos[] = $mensaje;
         }
 
         return $datos;
     }
 
-    public static function mensajeCrear(int $usuario_id, int $hilo_id, string $titulo, string $contenido, DateTime $fecha): ?Hilo
+    public static function mensajeCrear(int $usuario_id, int $hilo_id, string $titulo, string $contenido): ?Mensaje
     {
-        $idAutogenerado = Self::ejecutarInsert(
-            "INSERT INTO hilo (usuario_id, hilo_id, titulo, contenido, fecha) VALUES (?, ?, ?, ?, ?)",
-            [$usuario_id, $hilo_id, $titulo, $contenido, $fecha]
+        $idAutogenerado = self::ejecutarInsert(
+            "INSERT INTO mensaje (usuario_id, hilo_id, titulo, contenido) VALUES (?, ?, ?, ?)",
+            [$usuario_id, $hilo_id, $titulo, $contenido]
         );
 
         if ($idAutogenerado == null) return null;
-        else return Self::mensajeObtenerPorId($idAutogenerado);
+        else return self::mensajeObtenerPorId($idAutogenerado);
+    }
+
+    public static function mensajeObtenerPorId(int $id): ?Mensaje
+    {
+        $rs = self::ejecutarConsulta('SELECT *
+            FROM mensaje 
+            WHERE id=?',
+            [$id]
+        );
+        if ($rs) {
+            $fila = $rs[0];
+            $mensaje = self::mensajeCrearDesdeFila($fila);
+            return $mensaje;
+        } else {
+            return null;
+        }
     }
 
     public static function mensajeObtenerTodos(){
@@ -399,7 +424,7 @@ class DAO
 
         $datos = [];
         foreach ($rs as $fila) {
-            $hilo = Self::hiloCrearDesdeFila($fila);
+            $hilo = self::hiloCrearDesdeFila($fila);
             array_push($datos, $hilo);
         }
         return $datos;
@@ -419,6 +444,22 @@ class DAO
         }
         return $datos;
     }
+
+//    private static function transaccion(array $queriesFunc): ?array
+//    {
+//        $conexion = self::obtenerPdoConexionBD();
+//        $elementosInsertados = [];
+//        try {
+//            $conexion->beginTransaction();
+//            foreach($queriesFunc as $query){
+//                $elementosInsertados[] = $query();
+//            }
+//        }catch (PDOException $e){
+//            $conexion->rollback();
+//        }
+//
+//        return $elementosInsertados;
+//    }
 }
 
 
