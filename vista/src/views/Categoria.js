@@ -11,11 +11,15 @@ export async function loader({params}) {
 function Categoria(){
     const categoriaDatos = useLoaderData();
     const [categoria, setCategoria] = useState(categoriaDatos);
+    const goToNuevoPost = () => {
+        const nuevoPost = document.getElementById("nuevo-post");
+        nuevoPost.scrollIntoView({behavior: "smooth"});
+    };
     return(
         <div className="categoria card">
             <div className="titulo-button">
                 <h2 className="titulo">{categoria.nombre}</h2>
-                <button>Nuevo tema</button>
+                <button onClick={goToNuevoPost}>Nuevo tema</button>
             </div>
             <ListaHilos hilos={categoria.hilos}/>
             <NuevoPost datos={categoria} setDatos={setCategoria}/>
@@ -24,7 +28,6 @@ function Categoria(){
 }
 
 function Hilo({hilo}){
-
     return(
         <div className="item">
             <div>

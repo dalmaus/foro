@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
 :root{
   --borderColor: #cec9c9;
+  --borderColorInput: #989797;
   --descripcionColor: #656d76;
+  --submitButtonColor: #1F883D;
+  --borderRadiusCard: 6px;
 }
 *{
   margin: 0;
@@ -11,7 +14,6 @@
 #root{
   display: flex;
   flex-direction: column;
-  /*min-height: 100%;*/
   justify-content: space-between;
   height: 100vh;
 }
@@ -112,7 +114,11 @@ ul{
 .categoria .titulo-button button{
   padding-left: 15px;
   padding-right: 15px;
-  border: 1px solid var(--borderColor);
+  border: 1px solid var(--borderColorInput);
+  border-radius: 4px;
+}
+.categoria .titulo-button button:hover{
+  cursor: pointer;
 }
 
 .categoria .lista .titulo a{
@@ -146,7 +152,73 @@ ul{
 .descripcion{
   color: var(--descripcionColor);
 }
+.nuevo-post{
+  padding: 6px 0 0;
+  border-radius: var(--borderRadiusCard);
+}
 
+.nuevo-post form{
+  border-top: 1px solid var(--borderColor);
+  padding: 10px;
+}
+.nuevo-post .button-div{
+  display: flex;
+  justify-content: flex-end;
+}
+.nuevo-post button{
+  border: none;
+  border-radius: 6px;
+  background-color: var(--submitButtonColor);
+  color: white;
+  font-weight: bold;
+  padding: 8px 20px;
+}
+.nuevo-post button:disabled{
+  background-color: #94D3A2;
+  cursor: not-allowed;
+}
+.nuevo-post span{
+  display: inline-block;
+  position: relative;
+  bottom: -5px;
+  padding: 8px 10px 15px;
+  border: 1px solid var(--borderColor);
+  border-radius: 6px;
+  border-bottom: none;
+  background-color: white;
+  margin-left: 10px;
+}
+
+.nuevo-post input[type="text"], .nuevo-post textarea{
+  border: none;
+}
+.nuevo-post textarea, .nuevo-post input[type="text"]{
+  width: 100%;
+  height: 100%;
+  resize: vertical;
+}
+.nuevo-post textarea:focus-visible, .nuevo-post input:focus-visible{
+  outline: none;
+}
+.nuevo-post .input-div{
+  border: 1px solid var(--borderColorInput);
+  border-radius: var(--borderRadiusCard);
+  margin: 10px 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.nuevo-post button:hover{
+  cursor: pointer;
+}
+.separador{
+  content: '';
+  background-color: var(--borderColor);
+  height: 2px;
+  width: 98%;
+  margin: 25px auto;
+
+}
 footer{
   margin-top: 50px;
 }

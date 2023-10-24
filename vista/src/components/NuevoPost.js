@@ -12,33 +12,35 @@ function NuevoPost({datos, setDatos}) {
                     setDatos({...datos});
                 })
             );
+        evento.target.reset();
     }
     return (
-        <div class="nuevo-post">
-            <div>
-                <p>Crear un nuevo tema</p>
-            </div>
-            <form onSubmit={handleSubmit}>
+        <div>
+            <div className="separador"></div>
+            <div id="nuevo-post" className="nuevo-post">
                 <div>
-                    {datos &&
-                        <input hidden name="categoria_id" value={datos.id} />
-                    }
-                    <input hidden name="usuario_id" value="1" />
-                    <div>
-                        <label htmlFor="titulo" >Título</label>
-                        <input name="titulo" type="text"/>
-                    </div>
-                    <div>
-                        <label htmlFor="contenido">Contenido</label>
-                        <textarea name="contenido" type="text"/>
-                    </div>
-                    <div>
-                        <button type="submit">
-                            Enviar
-                        </button>
-                    </div>
+                    <span>Crear un nuevo tema</span>
                 </div>
-            </form>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        {datos &&
+                            <input hidden name="categoria_id" value={datos.id} />
+                        }
+                        <input hidden name="usuario_id" value="1" />
+                        <div className="input-div">
+                            <input placeholder="Titulo..." name="titulo" type="text" pattern="[A-z0-9,.\-'+`;@]{3,}"/>
+                        </div>
+                        <div className="input-div">
+                            <textarea name="contenido" type="text" rows="7" placeholder="Escribe aquí tu mensaje..."/>
+                        </div>
+                        <div className="button-div">
+                            <button type="submit" disabled>
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
