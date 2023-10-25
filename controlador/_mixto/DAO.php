@@ -460,6 +460,36 @@ class DAO
 //
 //        return $elementosInsertados;
 //    }
+    public static function usuarioObtenerMensajesPorId(int $id_usuario): ?array
+    {
+        $rs = self::ejecutarConsulta('SELECT * FROM mensaje 
+        WHERE usuario_id=?
+        ORDER BY fecha LIMIT 4',
+            [$id_usuario]);
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $mensaje = self::mensajeCrearDesdeFila($fila);
+            array_push($datos, $mensaje);
+        }
+        return $datos;
+    }
+
+    public static function usuarioObtenerHilosPorId(int $id_usuario): ?array
+    {
+        $rs = self::ejecutarConsulta('SELECT * FROM hilo 
+        WHERE usuario_id=?
+        ORDER BY fecha LIMIT 4',
+            [$id_usuario]
+        );
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $hilo = self::hiloCrearDesdeFila($fila);
+            array_push($datos, $hilo);
+        }
+        return $datos;
+    }
 }
 
 

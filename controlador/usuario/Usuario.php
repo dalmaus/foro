@@ -1,10 +1,14 @@
 <?php
+require_once "../_mixto/Dato.php";
+require_once "../_mixto/DAO.php";
 
 class Usuario extends Dato implements JsonSerializable
 {
 
     private string $nombre;
     private string $correo;
+    private ?array $hilos = null;
+    private ?array $mensajes = null;
     /**
      * @param int $id
      * @param string $nombre
@@ -15,6 +19,11 @@ class Usuario extends Dato implements JsonSerializable
         parent::__construct($id);
         $this->nombre = $nombre;
         $this->correo = $correo;
+    }
+
+    public static function obtenerPorId(int $id): ?Usuario
+    {
+        return DAO::usuarioObtenerPorId($id);
     }
 
     /**
@@ -49,6 +58,18 @@ class Usuario extends Dato implements JsonSerializable
         $this->nombre = $nombre;
     }
 
+    public function getHilos(): ?array
+    {
+        if($this->hilos == null) $this->hilos = DAO::usuarioObtenerHilosPorId($this->id);
+        return $this->hilos;
+    }
+
+    public function getMensajes(): ?array
+    {
+        if($this->mensajes == null) $this->mensajes = DAO::usuarioObtenerMensajesPorId($this->id);
+        return $this->mensajes;
+    }
+
     /**
      * @inheritDoc
      */
@@ -57,6 +78,8 @@ class Usuario extends Dato implements JsonSerializable
         return [
           "id" => $this->id,
           "nombre" => $this->nombre,
+          "hilos" => $this->hilos,
+          "mensajes" => $this->mensajes,
         ];
     }
 }

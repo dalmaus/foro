@@ -1,5 +1,7 @@
 import {getUsuario} from "../api/UsuarioApi";
-import {useLoaderData} from "react-router-dom";
+import {Link, useLoaderData} from "react-router-dom";
+import ListaMensajes from "../components/ListaMensajes";
+import avatar from "../img/avatar.png";
 
 export async function loader({params}) {
     const usuario = getUsuario(params.usuarioId);
@@ -8,6 +10,69 @@ export async function loader({params}) {
 
 function Usuario(){
     const usuario = useLoaderData();
+    return(
+      <div className="usuario">
+        <div className="datos-usuario">
+            <div className="avatar">
+                <img src={avatar} alt="avatar"/>
+            </div>
+            <div>
+                <span>{usuario.nombre}</span>
+            </div>
+        </div>
+        <div className="mensajes-hilos">
+              <div className="usuario-hilos">
+                  <h4>Últimos hilos creados</h4>
+                  <ListaHilos hilos={usuario.hilos}/>
+              </div>
+            <div className="usuario-mensajes">
+                <h4>Mensajes más recientes</h4>
+                <ListaMensajes mensajes={usuario.mensajes}/>
+            </div>
+        </div>
+      </div>
+    );
+}
+
+function Hilo({hilo}){
+    return(
+        <li className="usuario-hilo-item">
+            <div className="card-border">
+                <div className="item-parte-superior">
+                    <h5 className="titulo"><Link to={`/hilo/${hilo.id}`}>{hilo.titulo}</Link></h5>
+                    <span><Link to={`/categoria/${hilo.id}`}>{hilo.categoria_id}</Link></span>
+                </div>
+                <div>
+                    <span>{hilo.fecha}</span>
+                </div>
+            </div>
+        </li>
+    );
+}
+
+function ListaHilos({hilos}){
+
+    const hilosComponentes = [];
+
+    if(hilos.length > 0) {
+        hilos.forEach(hilo => {
+                hilosComponentes.push(
+                    <Hilo key={hilo.id} hilo={hilo}/>
+                )
+            }
+        );
+        return (
+            <ul>
+                {hilosComponentes}
+            </ul>
+        );
+    }else{
+        return (
+            <div>
+                <h3 className="error">Aún no hay hilos creados.</h3>
+            </div>
+        );
+    }
 }
 
 export default Usuario;
