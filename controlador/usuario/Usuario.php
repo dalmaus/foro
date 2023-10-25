@@ -7,6 +7,9 @@ class Usuario extends Dato implements JsonSerializable
 
     private string $nombre;
     private string $correo;
+    private string $password;
+    private ?string $bio = null;
+    private ?string $lugar = null;
     private ?array $hilos = null;
     private ?array $mensajes = null;
     /**
@@ -14,11 +17,14 @@ class Usuario extends Dato implements JsonSerializable
      * @param string $nombre
      * @param string $correo
      */
-    public function __construct(int $id, string $nombre, string $correo)
+    public function __construct(int $id, string $nombre, string $correo, string $password, ?string $bio, ?string $lugar)
     {
         parent::__construct($id);
         $this->nombre = $nombre;
         $this->correo = $correo;
+        $this->password = $password;
+        $this->bio = $bio;
+        $this->lugar = $lugar;
     }
 
     public static function obtenerPorId(int $id): ?Usuario
@@ -49,7 +55,53 @@ class Usuario extends Dato implements JsonSerializable
     {
         return $this->nombre;
     }
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
 
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    /**
+     * @param string|null $bio
+     */
+    public function setBio(?string $bio): void
+    {
+        $this->bio = $bio;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLugar(): ?string
+    {
+        return $this->lugar;
+    }
+
+    /**
+     * @param string|null $lugar
+     */
+    public function setLugar(?string $lugar): void
+    {
+        $this->lugar = $lugar;
+    }
     /**
      * @param string $nombre
      */
@@ -69,6 +121,10 @@ class Usuario extends Dato implements JsonSerializable
         if($this->mensajes == null) $this->mensajes = DAO::usuarioObtenerMensajesPorId($this->id);
         return $this->mensajes;
     }
+    public static function crear(string $nombre, string $correo, string $password, ?string $bio, ?string $lugar): ?Usuario
+    {
+        return DAO::usuarioCrear($nombre, $correo, $password, $bio, $lugar);
+    }
 
     /**
      * @inheritDoc
@@ -78,8 +134,12 @@ class Usuario extends Dato implements JsonSerializable
         return [
           "id" => $this->id,
           "nombre" => $this->nombre,
+          "password" => $this->password,
+          "bio" => $this->bio,
+          "lugar" => $this->lugar,
           "hilos" => $this->hilos,
           "mensajes" => $this->mensajes,
+
         ];
     }
 }

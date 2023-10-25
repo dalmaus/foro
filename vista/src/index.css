@@ -113,6 +113,9 @@ ul{
 .card h1{
   padding: 0 15px;
 }
+.categoria.card{
+  width: 45%;
+}
 .categoria .lista .titulo{
   font-weight: 500;
   font-size: 20px;

@@ -167,7 +167,14 @@ class DAO
 
     private static function usuarioCrearDesdeFila(array $fila): Usuario
     {
-        return new Usuario((int)$fila["id"], $fila["nombre"], $fila["correo"]);
+        return new Usuario(
+            (int)$fila["id"],
+            $fila["nombre"],
+            $fila["correo"],
+            $fila["password"],
+            $fila["bio"],
+            $fila["lugar"]
+        );
     }
 
     public static function usuarioObtenerPorId(int $id): ?Usuario
@@ -200,15 +207,15 @@ class DAO
         return $datos;
     }
 
-    public static function usuarioCrear(string $nombre, string $correo): ?Usuario
+    public static function usuarioCrear(string $nombre, string $correo, string $password, ?string $bio, ?string $lugar): ?Usuario
     {
         $idAutogenerado = Self::ejecutarInsert(
-            "INSERT INTO usuario (nombre, correo) VALUES (?, ?)",
-            [$nombre, $correo]
+            "INSERT INTO usuario (nombre, correo, password, bio, lugar) VALUES (?, ?, ?, ?, ?)",
+            [$nombre, $correo, $password, $bio, $lugar]
         );
 
         if ($idAutogenerado == null) return null;
-        else return Self::personaObtenerPorId($idAutogenerado);
+        else return self::usuarioObtenerPorId($idAutogenerado);
     }
 
     public static function usuarioActualizar(Usuario $usuario): ?Usuario

@@ -15,7 +15,10 @@ CREATE TABLE categoria (
 CREATE TABLE usuario (
     id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(30) NOT NULL,
-    correo VARCHAR(255)
+    correo VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    bio VARCHAR(255),
+    lugar VARCHAR(30)
 );
 CREATE TABLE hilo (
     id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -43,20 +46,29 @@ INSERT INTO categoria VALUES(null, 'Deportes', 'Comparte noticias y resultados d
 INSERT INTO categoria VALUES(null, 'Videojuegos', 'Discute juegos, trucos y consejos con otros jugadores.');
 INSERT INTO categoria VALUES(null, 'Música', 'Explora géneros, artistas y comparte tus canciones.');
 
-INSERT INTO usuario VALUES(null, 'PruebaUser', 'prueba@user');
+INSERT INTO usuario (nombre, correo, password) VALUES('PruebaUser', 'prueba@user', 'password1');
+INSERT INTO usuario (nombre, correo, password) VALUES('Usero1', 'usero@user', 'password2');
 
 INSERT INTO hilo (usuario_id, categoria_id, titulo)
 VALUES(1, 1, 'Prueba de Título');
 INSERT INTO hilo (usuario_id, categoria_id, titulo)
-VALUES(1, 1, 'Título 2');
+VALUES(2, 2, 'Título 2');
 INSERT INTO hilo (usuario_id, categoria_id, titulo)
 VALUES(1, 1, 'Título 3');
 INSERT INTO hilo (usuario_id, categoria_id, titulo)
-VALUES(1, 1, 'Título 4');
+VALUES(1, 4, 'Título 4');
+INSERT INTO hilo (usuario_id, categoria_id, titulo)
+VALUES(1, 1, 'Recomendaciones para visitar en Tokyo');
+INSERT INTO hilo (usuario_id, categoria_id, titulo)
+VALUES(1, 4, 'Gta VI - Trailer Inminente?');
+INSERT INTO hilo (usuario_id, categoria_id, titulo)
+VALUES(2, 5, 'Vuestra canción favorita de Michael Jackson');
 
 
 INSERT INTO mensaje (usuario_id, hilo_id, contenido)
-VALUES (1, 1, 'Este es la prueba de un mensaje en un hilo.')
+VALUES (1, 1, 'Este es la prueba de un mensaje en un hilo.');
+INSERT INTO mensaje (usuario_id, hilo_id, contenido)
+VALUES (2, 1, 'Prueba contestación a hilo de otro usuario.');
 
 
 

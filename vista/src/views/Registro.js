@@ -1,12 +1,14 @@
 import {Link} from "react-router-dom";
 
-export function Registro(){
+function handleSubmit() {
 
+}
+export function Registro(){
     return(
       <div className="registro">
           <h1 className="titulo">¡Únete ya a nuestro foro!</h1>
           <div className="form-container">
-              <form className="card-border">
+              <form className="card-border" onSubmit={handleSubmit}>
                   <div>
                       <label htmlFor="nombre">
                           Nombre de usuario
