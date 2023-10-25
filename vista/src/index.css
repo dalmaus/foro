@@ -42,6 +42,22 @@ body{
 }
 header{
   margin-bottom: 40px;
+  padding: 6px 15px;
+  box-shadow: 1px 1px 6px #b4afaf;
+  background-color: #efeded;
+}
+header .nav-usuario span{
+  padding: 0 5px;
+}
+header .nav-usuario, header .inicio-link{
+  display: flex;
+  align-items: center;
+}
+header span img{
+  width: 35px;
+  height: auto;
+  border: 1px solid var(--borderColor);
+  border-radius: 50%;
 }
 header .flex-container{
   display: flex;
@@ -108,7 +124,7 @@ ul{
 .categoria .titulo-button{
   display: flex;
   justify-content: space-between;
-  padding: 5px 15px;
+  padding: 15px 15px;
 }
 
 .categoria .titulo-button button{
@@ -165,7 +181,7 @@ ul{
   display: flex;
   justify-content: flex-end;
 }
-.nuevo-post button{
+.nuevo-post button, .registro button, .login button:disabled{
   border: none;
   border-radius: 6px;
   background-color: var(--submitButtonColor);
@@ -173,7 +189,7 @@ ul{
   font-weight: bold;
   padding: 8px 20px;
 }
-.nuevo-post button:disabled{
+.nuevo-post button:disabled, .registro button:disabled, .login button:disabled{
   background-color: #94D3A2;
   cursor: not-allowed;
 }
@@ -200,7 +216,7 @@ ul{
 .nuevo-post textarea:focus-visible, .nuevo-post input:focus-visible{
   outline: none;
 }
-.nuevo-post .input-div{
+.input-div{
   border: 1px solid var(--borderColorInput);
   border-radius: var(--borderRadiusCard);
   margin: 10px 0;
@@ -224,6 +240,10 @@ ul{
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 15px;
+}
+.usuario a{
+  text-decoration: none;
+  color: black;
 }
 .usuario .datos-usuario{
   margin: 0 auto;
@@ -261,6 +281,7 @@ ul{
 .usuario .usuario-hilos ul{
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .usuario .usuario-hilos li{
   display: block;
@@ -287,6 +308,49 @@ ul{
   display: flex;
   justify-content: space-between;
 }
+.usuario .hilo-categoria a{
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  border: 1px solid var(--borderColor);
+  border-radius: 25px;
+  padding: 0 10px;
+  text-decoration: none;
+  color: var(--descripcionColor);
+}
+.registro .form-container, .login .form-container{
+  display: flex;
+}
+.registro form, .login form{
+  display: inline-block;
+  margin: 0 auto;
+  padding: 25px;
+}
+.registro form label, .login form label{
+  display: block;
+}
+.registro button, .login button{
+  width: 100%;
+  margin: 15px 0;
+}
+.registro .input-div, .login .input-div{
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+}
+.registro .titulo, .login .titulo{
+  font-weight: normal;
+  text-align: center;
+  padding: 0 0 35px;
+}
+.login .login-link{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 footer{
   margin-top: 50px;
 }
+

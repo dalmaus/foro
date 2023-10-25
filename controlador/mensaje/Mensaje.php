@@ -119,7 +119,6 @@ class Mensaje extends Dato implements JsonSerializable
     public function obtenerUsuario(): ?Usuario
     {
         if($this->usuario === null) $this->usuario = DAO::usuarioObtenerPorId($this->usuario_id);
-
         return $this->usuario;
     }
 
@@ -135,7 +134,7 @@ class Mensaje extends Dato implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-          "id" => $this->usuario_id,
+          "id" => $this->id,
             "usuario_id" => $this->usuario_id,
             "titulo" => $this->titulo,
             "contenido" => $this->contenido,

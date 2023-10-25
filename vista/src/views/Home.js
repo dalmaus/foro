@@ -43,7 +43,7 @@ function Categoria({ categoria }){
 
     return(
         <div className="item">
-            <h2><Link to={`/categorias/${id}`}>{ nombre }</Link></h2>
+            <h2><Link to={`/categoria/${id}`}>{ nombre }</Link></h2>
             <p className="descripcion">{ descripcion }</p>
         </div>
     );

@@ -1,14 +1,14 @@
 import avatar from "../img/avatar.png";
 
-function Mensaje({datosMensaje}) {
+function Mensaje({usuario, mensaje}) {
     return (
         <li>
             <div className="mensaje card-border">
                 <div>
                     <div>
                         <img src={avatar} alt="avatar-usuario"/>
-                        <span>{"nombre-usuario"}</span>
-                        <span>{datosMensaje.fecha}</span>
+                        <span>{usuario.nombre}</span>
+                        <span>{mensaje.fecha}</span>
                     </div>
                     <button className="menu-button">
                         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
@@ -20,17 +20,16 @@ function Mensaje({datosMensaje}) {
                 </div>
 
                 <div>
-                    <span>{"contenido mensaje"}</span>
+                    <span>{mensaje.contenido}</span>
                 </div>
             </div>
         </li>
     );
 }
-
-export function ListaMensajes({mensajes}){
+export function ListaMensajes({usuario, mensajes}){
     const mensajesComponentes = [];
     mensajes.forEach(mensaje => {
-        mensajesComponentes.push(<Mensaje key={mensaje.id} datosMensaje={mensaje}/>)
+        mensajesComponentes.push(<Mensaje key={mensaje.id} usuario={usuario} mensaje={mensaje}/>)
     });
     return(
         <ul className="lista-mensajes">
@@ -38,5 +37,4 @@ export function ListaMensajes({mensajes}){
         </ul>
     );
 }
-
 export default ListaMensajes;

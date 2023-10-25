@@ -11,6 +11,8 @@ import Categoria, {loader as categoriaLoader} from "./views/Categoria";
 import Root from "./views/Root";
 import Hilo, {loader as hiloLoader} from "./views/Hilo";
 import Usuario, {loader as usuarioLoader} from "./views/Usuario"
+import Registro from "./views/Registro";
+import Login from "./views/Login";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +26,7 @@ const router = createBrowserRouter([
             errorElement: <div>Algo ha ido mal</div>,
             },
             {
-                path: "categorias/:categoriaId",
+                path: "categoria/:categoriaId",
                 element: <Categoria />,
                 loader: categoriaLoader,
             },
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
                 path: "usuario/:usuarioId",
                 element: <Usuario />,
                 loader: usuarioLoader,
+            },
+            {
+                path: "registro",
+                element: <Registro />,
+            },
+            {
+                path: "login",
+                element: <Login />,
             }
         ],
     },

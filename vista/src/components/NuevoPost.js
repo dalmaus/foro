@@ -24,9 +24,9 @@ function NuevoPost({datos, setDatos}) {
                 <form onSubmit={handleSubmit}>
                     <div>
                         {datos &&
-                            <input hidden name="categoria_id" value={datos.id} />
+                            <input hidden name="categoria_id" defaultValue={datos.id} />
                         }
-                        <input hidden name="usuario_id" value="1" />
+                        <input hidden name="usuario_id" defaultValue="1" />
                         <div className="input-div">
                             <input placeholder="Titulo..." name="titulo" type="text" pattern="[A-z0-9,.\-'+`;@]{3,}"/>
                         </div>
@@ -44,5 +44,4 @@ function NuevoPost({datos, setDatos}) {
         </div>
     );
 }
-
 export default NuevoPost;

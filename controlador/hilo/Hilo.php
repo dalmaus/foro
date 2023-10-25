@@ -4,15 +4,17 @@ require_once "../_mixto/Dato.php";
 require_once "../_mixto/DAO.php";
 require_once "../usuario/Usuario.php";
 require_once "../mensaje/Mensaje.php";
+require_once "../categoria/Categoria.php";
 
 class Hilo extends Dato implements JsonSerializable
 {
 
     private int $usuario_id;
+    private ?Usuario $usuario = null;
     private int $categoria_id;
+    private ?Categoria $categoria = null;
     private string $titulo;
     private string $fecha;
-    private ?Usuario $usuario = null;
     private ?array $mensajes = null;
 
     /**
@@ -118,6 +120,10 @@ class Hilo extends Dato implements JsonSerializable
         $hilo->obtenerUsuario();
         return $hilo;
     }
+    public function obtenerCategoria(){
+        if($this->categoria == null) $this->categoria = DAO::categoriaObtenerPorId($this->categoria_id);
+        return $this->categoria;
+    }
 
     public function jsonSerialize()
     {
@@ -125,6 +131,7 @@ class Hilo extends Dato implements JsonSerializable
             "id" => $this->id,
             "usuario_id" => $this->usuario_id,
             "categoria_id" => $this->categoria_id,
+            "categoria" => $this->categoria,
             "titulo" => $this->titulo,
             "fecha" => $this->fecha,
             "usuario" => $this->usuario,

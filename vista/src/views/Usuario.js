@@ -27,7 +27,7 @@ function Usuario(){
               </div>
             <div className="usuario-mensajes">
                 <h4>Mensajes más recientes</h4>
-                <ListaMensajes mensajes={usuario.mensajes}/>
+                <ListaMensajes usuario={usuario} mensajes={usuario.mensajes}/>
             </div>
         </div>
       </div>
@@ -40,7 +40,9 @@ function Hilo({hilo}){
             <div className="card-border">
                 <div className="item-parte-superior">
                     <h5 className="titulo"><Link to={`/hilo/${hilo.id}`}>{hilo.titulo}</Link></h5>
-                    <span><Link to={`/categoria/${hilo.id}`}>{hilo.categoria_id}</Link></span>
+                    <span className="hilo-categoria">
+                        <Link to={`/categoria/${hilo.id}`}>{hilo.categoria.nombre}</Link>
+                    </span>
                 </div>
                 <div>
                     <span>{hilo.fecha}</span>

@@ -177,7 +177,9 @@ class DAO
             [$id]
         );
 
-        if ($rs) return self::usuarioCrearDesdeFila($rs[0]);
+        if ($rs) {
+            return self::usuarioCrearDesdeFila($rs[0]);
+        }
         else return null;
     }
 
@@ -486,6 +488,7 @@ class DAO
         $datos = [];
         foreach ($rs as $fila) {
             $hilo = self::hiloCrearDesdeFila($fila);
+            $hilo->obtenerCategoria();
             array_push($datos, $hilo);
         }
         return $datos;
