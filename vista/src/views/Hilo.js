@@ -8,6 +8,7 @@ export async function loader({params}) {
 
 function Hilo(){
     const hilo = useLoaderData();
+    console.log(hilo)
 }
 
 export default Hilo;

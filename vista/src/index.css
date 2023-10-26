@@ -385,6 +385,13 @@ ul{
   flex-direction: column;
   align-items: center;
 }
+.error-no-pagina{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 footer{
   margin-top: 50px;
 }

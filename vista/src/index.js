@@ -1,56 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
 import './index.css';
-
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-import Home, {loader as homeLoader} from "./views/Home";
-import Categoria, {loader as categoriaLoader} from "./views/Categoria";
-import Root from "./views/Root";
-import Hilo, {loader as hiloLoader} from "./views/Hilo";
-import Usuario, {loader as usuarioLoader} from "./views/Usuario"
-import Registro from "./views/Registro";
-import Login from "./views/Login";
-
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Root />,
-        errorElement: <div>Algo ha ido mal</div>,
-        children: [{
-            path: "/",
-            element: <Home />,
-            loader: homeLoader,
-            errorElement: <div>Algo ha ido mal</div>,
-            },
-            {
-                path: "categoria/:categoriaId",
-                element: <Categoria />,
-                loader: categoriaLoader,
-            },
-            {
-                path: "hilo/:hiloId",
-                element: <Hilo />,
-                loader: hiloLoader,
-            },
-            {
-                path: "usuario/:usuarioId",
-                element: <Usuario />,
-                loader: usuarioLoader,
-            },
-            {
-                path: "registro",
-                element: <Registro />,
-            },
-            {
-                path: "login",
-                element: <Login />,
-            }
-        ],
-    },
-]);
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -11,6 +11,7 @@ export async function loader({params}) {
 
 function Categoria(){
     const categoriaDatos = useLoaderData();
+    console.log(categoriaDatos)
     const [categoria, setCategoria] = useState(categoriaDatos);
     const goToNuevoPost = () => {
         const nuevoPost = document.getElementById("nuevo-post");
