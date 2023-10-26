@@ -2,6 +2,7 @@ import {getUsuario} from "../api/UsuarioApi";
 import {Link, useLoaderData} from "react-router-dom";
 import ListaMensajes from "../components/ListaMensajes";
 import avatar from "../img/avatar.png";
+import {parseaFecha} from "../functions/functions";
 
 export async function loader({params}) {
     const usuario = getUsuario(params.usuarioId);
@@ -16,17 +17,21 @@ function Usuario(){
             <div className="avatar">
                 <img src={avatar} alt="avatar"/>
             </div>
-            <div>
+            <div className="nombre-usuario">
                 <span>{usuario.nombre}</span>
             </div>
         </div>
         <div className="mensajes-hilos">
               <div className="usuario-hilos">
-                  <h4>Últimos hilos creados</h4>
+                  <div className="titulo">
+                      <h4>Últimos hilos creados</h4>
+                  </div>
                   <ListaHilos hilos={usuario.hilos}/>
               </div>
             <div className="usuario-mensajes">
-                <h4>Mensajes más recientes</h4>
+                <div className="titulo">
+                    <h4>Mensajes más recientes</h4>
+                </div>
                 <ListaMensajes usuario={usuario} mensajes={usuario.mensajes}/>
             </div>
         </div>
@@ -45,7 +50,7 @@ function Hilo({hilo}){
                     </span>
                 </div>
                 <div>
-                    <span>{hilo.fecha}</span>
+                    <span className="usuario-fecha">{parseaFecha(hilo.fecha)}</span>
                 </div>
             </div>
         </li>

@@ -1,14 +1,13 @@
-import avatar from "../img/avatar.png";
+import {parseaFecha} from "../functions/functions";
 
-function Mensaje({usuario, mensaje}) {
+function MensajeUsuario({usuario, mensaje}) { //para la página de usuario
     return (
         <li>
             <div className="mensaje card-border">
                 <div>
                     <div>
-                        <img src={avatar} alt="avatar-usuario"/>
-                        <span>{usuario.nombre}</span>
-                        <span>{mensaje.fecha}</span>
+                        <span className="nombre-usuario">{usuario.nombre}</span>
+                        <span className="usuario-fecha">{parseaFecha(mensaje.fecha)}</span>
                     </div>
                     <button className="menu-button">
                         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
@@ -19,7 +18,7 @@ function Mensaje({usuario, mensaje}) {
                     </button>
                 </div>
 
-                <div>
+                <div className="contenido">
                     <span>{mensaje.contenido}</span>
                 </div>
             </div>
@@ -29,7 +28,7 @@ function Mensaje({usuario, mensaje}) {
 export function ListaMensajes({usuario, mensajes}){
     const mensajesComponentes = [];
     mensajes.forEach(mensaje => {
-        mensajesComponentes.push(<Mensaje key={mensaje.id} usuario={usuario} mensaje={mensaje}/>)
+        mensajesComponentes.push(<MensajeUsuario key={mensaje.id} usuario={usuario} mensaje={mensaje}/>)
     });
     return(
         <ul className="lista-mensajes">

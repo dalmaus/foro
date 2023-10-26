@@ -2,6 +2,7 @@ import {Link, useLoaderData} from "react-router-dom";
 import {getCategoria} from "../api/CategoriaApi";
 import NuevoPost from "../components/NuevoPost";
 import {useState} from "react";
+import {parseaFecha} from "../functions/functions";
 
 export async function loader({params}) {
     const categoria = getCategoria(params.categoriaId);
@@ -35,7 +36,7 @@ function Hilo({hilo}){
             </div>
             <div className="usuario-fecha">
                 <p><Link to={`/usuario/${hilo.usuario.id}`}>{hilo.usuario.nombre}</Link></p>
-                <span>{hilo.fecha}</span>
+                <span>{parseaFecha(hilo.fecha)}</span>
             </div>
         </div>
     );

@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
 :root{
   --borderColor: #cec9c9;
-  --borderColorInput: #989797;
+  --borderColorInput: #575757;
   --descripcionColor: #656d76;
   --submitButtonColor: #1F883D;
   --borderRadiusCard: 6px;
+  --enlaceColor: #0969DA;
 }
 *{
   margin: 0;
@@ -29,19 +30,19 @@ body {
   font-family: 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+body a{
+  text-decoration: none;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-body{
-  overflow-y: scroll;
-}
 header{
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   padding: 6px 15px;
   box-shadow: 1px 1px 6px #b4afaf;
   background-color: #efeded;
@@ -77,9 +78,6 @@ header .flex-container{
   border-radius: 6px;
   padding: 8px 15px 15px;
 }
-.card .lista a{
-  text-decoration: none;
-}
 
 .card .item{
   padding: 12px 0;
@@ -87,6 +85,9 @@ header .flex-container{
 
 .card .item h2{
   padding: 0 0 3px 0;
+}
+.card .item a{
+  color: var(--enlaceColor)
 }
 
 .card .descripcion, h2{
@@ -112,6 +113,7 @@ ul{
 }
 .card h1{
   padding: 0 15px;
+  margin-bottom: 20px;
 }
 .categoria.card{
   width: 45%;
@@ -149,11 +151,12 @@ ul{
 .categoria .item:last-child{
   border-bottom: none;
 }
-.categoria .usuario-fecha{
+.categoria .usuario-fecha, .usuario .usuario-fecha{
   display: flex;
   justify-content: space-between;
   color: var(--descripcionColor);
 }
+
 .categoria .usuario-fecha p{
   display: inline-block;
 }
@@ -161,6 +164,7 @@ ul{
   color: var(--descripcionColor);
   font-weight: 500;
   font-size: 14px;
+  color: var(--enlaceColor);
 }
 .categoria .usuario-fecha span{
   font-size: 12px;
@@ -239,17 +243,30 @@ ul{
 
 }
 .usuario{
-  margin: 0 15px;
+  margin: 0 14%;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 15px;
 }
 .usuario a{
-  text-decoration: none;
   color: black;
 }
 .usuario .datos-usuario{
   margin: 0 auto;
+}
+.usuario .mensaje{
+  margin: 8px 0;
+  padding: 10px 16px 0;
+}
+.usuario .mensaje .usuario-fecha{
+  margin: 0 0 0 8px;
+}
+.usuario .mensaje .contenido{
+  margin: 20px 0;
+}
+.usuario .titulo h4{
+  font-size: 20px;
+  font-weight: normal;
 }
 .usuario .avatar{
   border: 2px solid var(--borderColor);
@@ -258,14 +275,17 @@ ul{
   width: 100%;
   max-width: 260px;
   max-height: 260px;
+  margin-bottom: 25px;
 }
 .usuario .avatar img{
   max-width: inherit;
   max-height: inherit;
 }
-.usuario .mensaje{
-  margin: 8px 0;
+.usuario .datos-usuario .nombre-usuario span{
+  font-size: 18px;
+  color: var(--borderColorInput);
 }
+
 .usuario .usuario-mensajes{
   padding: 8px;
 }
@@ -281,6 +301,12 @@ ul{
   border: none;
   background-color: transparent;
 }
+.usuario .mensaje .nombre-usuario{
+  font-weight: bold;
+}
+.usuario .usuario-hilos{
+  margin-bottom: 25px;
+}
 .usuario .usuario-hilos ul{
   display: flex;
   flex-wrap: wrap;
@@ -289,10 +315,7 @@ ul{
 .usuario .usuario-hilos li{
   display: block;
   width: 46%;
-
-}
-.usuario .mensaje{
-  display: block;
+  display: flex;
 }
 .card-border{
   border: 1px solid var(--borderColor);
@@ -306,10 +329,19 @@ ul{
 }
 .usuario .usuario-hilo-item .card-border{
   padding: 8px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .usuario .item-parte-superior{
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.usuario .item-parte-superior a{
+  color: var(--enlaceColor);
 }
 .usuario .hilo-categoria a{
   display: flex;
@@ -318,8 +350,8 @@ ul{
   border: 1px solid var(--borderColor);
   border-radius: 25px;
   padding: 0 10px;
-  text-decoration: none;
   color: var(--descripcionColor);
+  margin-left: 20px;
 }
 .registro .form-container, .login .form-container{
   display: flex;

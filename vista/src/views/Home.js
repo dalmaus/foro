@@ -6,7 +6,7 @@ function Home(){
 
     return (
         <div className="card">
-            <h1 className="titulo">FORO</h1>
+            <h1 className="titulo">Categorías</h1>
             <ListaCategorias categorias={categorias} />
         </div>
     );
