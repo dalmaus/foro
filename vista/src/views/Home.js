@@ -5,7 +5,7 @@ function Home(){
     const categorias = useLoaderData();
 
     return (
-        <div className="card">
+        <div className="card home">
             <h1 className="titulo">Categorías</h1>
             <ListaCategorias categorias={categorias} />
         </div>

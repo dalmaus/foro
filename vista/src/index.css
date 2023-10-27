@@ -69,6 +69,12 @@ header .flex-container{
   width: 30%;
   max-height: 100%;
 }
+.home h1{
+  text-align: left;
+  font-size: 42px;
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
 .card h1{
   text-align: left;
   padding: 0 10px;
@@ -111,11 +117,8 @@ ul{
     width: 90%;
   }
 }
-.card h1{
-  padding: 0 15px;
-  margin-bottom: 20px;
-}
-.categoria.card{
+
+.categoria.card, .hilo.card{
   width: 45%;
 }
 .categoria .lista .titulo{
@@ -126,13 +129,16 @@ ul{
   padding: 15px;
   text-align: center;
 }
-.categoria .titulo-button{
+.categoria .titulo{
+  font-size: 32px;
+}
+.categoria .titulo-button, .hilo .titulo-button{
   display: flex;
   justify-content: space-between;
   padding: 15px 15px;
 }
 
-.categoria .titulo-button button{
+.categoria .titulo-button button, .hilo .titulo-button .button{
   padding-left: 15px;
   padding-right: 15px;
   border: 1px solid var(--borderColorInput);
@@ -169,7 +175,7 @@ ul{
 .categoria .usuario-fecha span{
   font-size: 12px;
 }
-.categoria .nuevo-post{
+.categoria .nuevo-post, .hilo .nuevo-post{
   border: 1px solid var(--borderColor);
 }
 .descripcion{
@@ -384,6 +390,33 @@ ul{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.hilo h4{
+  font-size: 22px;
+  font-weight: normal;
+}
+.hilo .titulo-button button{
+  padding: 8px 10px;
+}
+.hilo .hilo-mensaje .card-border{
+  padding: 8px 16px;
+}
+.hilo .hilo-mensaje .usuario-fecha {
+  display: flex;
+}
+.hilo .fecha{
+  font-size: 12px;
+  color: var(--descripcionColor);
+}
+.hilo .hilo-mensaje a{
+  color: black;
+}
+.hilo .nuevo-post{
+  margin: 0 auto;
+  width: 90%;
+}
+.hilo .separador{
+  width: 88%;
 }
 .error-no-pagina{
   height: 100vh;
