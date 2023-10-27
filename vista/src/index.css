@@ -194,13 +194,14 @@ ul{
   display: flex;
   justify-content: flex-end;
 }
-.nuevo-post button, .registro button, .login button:disabled{
+.nuevo-post button, .registro button, .login button{
   border: none;
   border-radius: 6px;
   background-color: var(--submitButtonColor);
   color: white;
   font-weight: bold;
   padding: 8px 20px;
+  cursor: pointer;
 }
 .nuevo-post button:disabled, .registro button:disabled, .login button:disabled{
   background-color: #94D3A2;
@@ -418,6 +419,20 @@ ul{
 .hilo .separador{
   width: 88%;
 }
+.login .recuerdame{
+  display: flex;
+  vertical-align:middle;
+  justify-content: center;
+  padding: 10px;
+}
+.login .recuerdame label{
+  color: var(--borderColorInput);
+}
+.login .recuerdame input[type="checkbox"]{
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
 .error-no-pagina{
   height: 100vh;
   display: flex;

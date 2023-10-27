@@ -14,9 +14,9 @@ CREATE TABLE categoria (
 );
 CREATE TABLE usuario (
     id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(30) NOT NULL,
+    nombre VARCHAR(30) NOT NULL UNIQUE,
     correo VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    contrasenna VARCHAR(255) NOT NULL,
     bio VARCHAR(255),
     lugar VARCHAR(30)
 );
@@ -46,8 +46,8 @@ INSERT INTO categoria VALUES(null, 'Deportes', 'Comparte noticias y resultados d
 INSERT INTO categoria VALUES(null, 'Videojuegos', 'Discute juegos, trucos y consejos con otros jugadores.');
 INSERT INTO categoria VALUES(null, 'Música', 'Explora géneros, artistas y comparte tus canciones.');
 
-INSERT INTO usuario (nombre, correo, password) VALUES('PruebaUser', 'prueba@user', 'password1');
-INSERT INTO usuario (nombre, correo, password) VALUES('Usero1', 'usero@user', 'password2');
+INSERT INTO usuario (nombre, correo, contrasenna) VALUES('Usuario1', 'prueba@user', 'password1');
+INSERT INTO usuario (nombre, correo, contrasenna) VALUES('Usuario2', 'usero@user', 'password2');
 
 INSERT INTO hilo (usuario_id, categoria_id, titulo)
 VALUES(1, 1, 'Prueba de Título');

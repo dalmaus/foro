@@ -7,7 +7,7 @@ class Usuario extends Dato implements JsonSerializable
 
     private string $nombre;
     private string $correo;
-    private string $password;
+    private string $contrasenna;
     private ?string $bio = null;
     private ?string $lugar = null;
     private ?array $hilos = null;
@@ -17,12 +17,12 @@ class Usuario extends Dato implements JsonSerializable
      * @param string $nombre
      * @param string $correo
      */
-    public function __construct(int $id, string $nombre, string $correo, string $password, ?string $bio, ?string $lugar)
+    public function __construct(int $id, string $nombre, string $correo, string $contrasenna, ?string $bio, ?string $lugar)
     {
         parent::__construct($id);
         $this->nombre = $nombre;
         $this->correo = $correo;
-        $this->password = $password;
+        $this->contrasenna = $contrasenna;
         $this->bio = $bio;
         $this->lugar = $lugar;
     }
@@ -58,17 +58,17 @@ class Usuario extends Dato implements JsonSerializable
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getContrasenna(): string
     {
-        return $this->password;
+        return $this->contrasenna;
     }
 
     /**
-     * @param string $password
+     * @param string $contrasenna
      */
-    public function setPassword(string $password): void
+    public function setContrasenna(string $contrasenna): void
     {
-        $this->password = $password;
+        $this->contrasenna = $contrasenna;
     }
 
     /**
@@ -134,7 +134,7 @@ class Usuario extends Dato implements JsonSerializable
         return [
           "id" => $this->id,
           "nombre" => $this->nombre,
-          "password" => $this->password,
+          "contraseña" => $this->contrasenna,
           "bio" => $this->bio,
           "lugar" => $this->lugar,
           "hilos" => $this->hilos,

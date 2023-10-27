@@ -31,7 +31,7 @@ function NuevoPost({datos, setDatos}) {
                             <input placeholder="Titulo..." name="titulo" type="text" pattern="[A-z0-9,.\-'+`;@]{3,}"/>
                         </div>
                         <div className="input-div">
-                            <textarea name="contenido" type="text" rows="7" placeholder="Escribe aquí tu mensaje..."/>
+                            <textarea name="contenido" rows="7" placeholder="Escribe aquí tu mensaje..."/>
                         </div>
                         <div className="button-div">
                             <button type="submit" disabled>
