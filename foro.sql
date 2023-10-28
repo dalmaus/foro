@@ -18,7 +18,9 @@ CREATE TABLE usuario (
     correo VARCHAR(255) NOT NULL,
     contrasenna VARCHAR(255) NOT NULL,
     bio VARCHAR(255),
-    lugar VARCHAR(30)
+    lugar VARCHAR(30),
+    codigoCookie VARCHAR(255),
+    caducidadCodigoCookie DATETIME
 );
 CREATE TABLE hilo (
     id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,

@@ -171,7 +171,7 @@ class DAO
             (int)$fila["id"],
             $fila["nombre"],
             $fila["correo"],
-            $fila["password"],
+            $fila["contrasenna"],
             $fila["bio"],
             $fila["lugar"]
         );
@@ -207,11 +207,11 @@ class DAO
         return $datos;
     }
 
-    public static function usuarioCrear(string $nombre, string $correo, string $password, ?string $bio, ?string $lugar): ?Usuario
+    public static function usuarioCrear(string $nombre, string $correo, string $contrasenna, ?string $bio, ?string $lugar): ?Usuario
     {
         $idAutogenerado = Self::ejecutarInsert(
-            "INSERT INTO usuario (nombre, correo, password, bio, lugar) VALUES (?, ?, ?, ?, ?)",
-            [$nombre, $correo, $password, $bio, $lugar]
+            "INSERT INTO usuario (nombre, correo, contrasenna, bio, lugar) VALUES (?, ?, ?, ?, ?)",
+            [$nombre, $correo, $contrasenna, $bio, $lugar]
         );
 
         if ($idAutogenerado == null) return null;

@@ -49,7 +49,9 @@
     }
 
     function headers(){
+        //https://stackoverflow.com/questions/68300680/starting-a-php-session-from-react-with-an-axios-call-does-not-keep-the-session-a
+        header("Access-Control-Allow-Origin: http://localhost:3000");
+        header("Access-Control-Allow-Credentials: true");
         header("Content-Type: application/json");
-        header("Access-Control-Allow-Origin: *");
     }
 ?>

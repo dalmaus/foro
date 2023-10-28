@@ -1,15 +1,13 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import urls from "../api/_constants";
 import {useState} from "react";
 
-
-
 export function Login(){
     const [formDatos, setFormDatos] = useState({
-        nombre: "",
-        contrasenna: "",
-        // Add more fields as needed
+        nombre: "usuario1",
+        contrasenna: "password1"
     });
+    const navigate = useNavigate();
 
     function onFormDatosChange(evento){
         const { name, value } = evento.target;
@@ -21,12 +19,20 @@ export function Login(){
 
     async function handleSubmit(evento) {
         evento.preventDefault();
-        // await fetch(`${urls.LOGIN_EDNPOINT}`)
-        //     .then(respuesta => respuesta.json()
-        //         .then(hilo => {
-        //             console.log(hilo)
-        //         })
-        //     );
+
+        let login = false;
+        await fetch(`${urls.LOGIN_ENDPOINT}`, {method: "POST", body: JSON.stringify(formDatos), credentials: "include"})
+            .then(respuesta => respuesta.json()
+                .then(respuesta => {
+                    login = respuesta;
+                })
+            );
+
+        if(login){
+            navigate("/");
+        }else{
+            console.log("asfasdf")
+        }
     }
 
     return(
@@ -49,7 +55,8 @@ export function Login(){
                                onChange={(e) => onFormDatosChange(e)}/>
                     </div>
                     <div className="recuerdame">
-                        <input type='checkbox' name='recuerdame'/>
+                        <input type='checkbox' name='recuerdame' defaultValue={formDatos.recuerdame}
+                        onChange={e => onFormDatosChange(e)}/>
                         <label htmlFor="recuerdame">Recuérdame</label>
                     </div>
                     <div className="login-link">

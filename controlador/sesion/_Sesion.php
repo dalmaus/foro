@@ -5,9 +5,9 @@
 
     session_start();
 
-    function entrarSiSesionIniciada()
+    function siSesionIniciada()
     {
-        //if (comprobarRenovarSesion()) redireccionar("PersonasListado.php");
+        return comprobarRenovarSesion();
     }
 
     function salirSiSesionFalla()
@@ -29,6 +29,7 @@
                 generarRenovarSesionCookie();
                 return true;
             } else { // Ni RAM, ni cookie
+
                 return false;
             }
         }
@@ -39,7 +40,7 @@
         return isset($_SESSION["id"]);
     }
 
-    function obtenerUsuarioPorPassword(string $nombre, string $contrasenna): ?array
+    function obtenerUsuarioPorContrasenna(string $nombre, string $contrasenna): ?array
     {
         $conexion = obtenerPdoConexionBD();
         $sql = "SELECT id, nombre FROM usuario
@@ -115,4 +116,21 @@
 
         // Destruir sesión RAM (implica borrar cookie de PHP "PHPSESSID").
         session_destroy();
+    }
+
+    function siSesionNoIniciada(string $usuario_json): bool
+    {
+        $request_body = json_decode($usuario_json, true); //json via post
+
+        $usuario = obtenerUsuarioPorContrasenna($request_body["nombre"], $request_body["contrasenna"]);
+
+        if ($usuario) { // Equivale a if ($usuario != null)
+            generarSesionRAM($usuario);
+            if (isset($request_body["recuerdame"])) {
+                generarRenovarSesionCookie();
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
