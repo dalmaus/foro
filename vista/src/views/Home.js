@@ -1,20 +1,24 @@
 import {Link, useLoaderData} from "react-router-dom";
+import {getCategorias} from "../api/CategoriaApi";
+import Header from "../components/Header";
 
 function Home(){
 
     const categorias = useLoaderData();
 
     return (
-        <div className="card home">
-            <h1 className="titulo">Categorías</h1>
-            <ListaCategorias categorias={categorias} />
-        </div>
+        <>
+            <Header />
+            <div className="card home">
+                <h1 className="titulo">Categorías</h1>
+                <ListaCategorias categorias={categorias} />
+            </div>
+        </>
     );
 }
 
-export function loader() {
-    const categorias = [{"id":1,"nombre":"General","descripcion":"Cuestiones generales, información y dudas sobre temas menos específicos","hilos":null},{"id":2,"nombre":"Política","descripcion":"Debate sobre asuntos gubernamentales y políticos de actualidad.","hilos":null},{"id":3,"nombre":"Deportes","descripcion":"Comparte noticias y resultados de tus deportes favoritos.","hilos":null},{"id":4,"nombre":"Videojuegos","descripcion":"Discute juegos, trucos y consejos con otros jugadores.","hilos":null},{"id":5,"nombre":"Música","descripcion":"Explora géneros, artistas y comparte tus canciones.","hilos":null}]
-    return categorias;
+export async function loader() {
+    return getCategorias();
 }
 
 function ListaCategorias({ categorias }){

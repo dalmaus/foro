@@ -1,3 +1,5 @@
+import urls from "../api/_constants";
+
 export function parseaFecha(fecha){
     const fechaParseada = new Date(fecha);
     const fechaActual = new Date(Date.now());
@@ -11,4 +13,11 @@ export function parseaFecha(fecha){
     }else{
         return `${fechaParseada.toLocaleDateString()} ${fechaParseada.getHours()}:${fechaParseada.getMinutes()}`;
     }
+}
+
+export async function estaAutorizado(){
+
+    const autorizado = await fetch(urls.USUARIO_AUTENTICADO_ENDPOINT, {credentials: 'include'}).then(respuesta => {return respuesta.json()})
+    console.log(autorizado)
+    return autorizado;
 }

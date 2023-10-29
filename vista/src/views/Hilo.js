@@ -1,6 +1,7 @@
 import {getHilo} from "../api/HiloApi";
 import {Link, useLoaderData} from "react-router-dom";
 import {parseaFecha} from "../functions/functions";
+import Header from "../components/Header";
 
 export async function loader({params}) {
     return getHilo(params.hiloId);
@@ -9,14 +10,17 @@ export async function loader({params}) {
 function Hilo(){
     const hilo = useLoaderData();
     return(
-      <div className="hilo card">
-          <div className="titulo-button">
-              <h4 className="titulo">{hilo.titulo}</h4>
-              <button>Nuevo mensaje</button>
+        <>
+          <Header />
+          <div className="hilo card">
+              <div className="titulo-button">
+                  <h4 className="titulo">{hilo.titulo}</h4>
+                  <button>Nuevo mensaje</button>
+              </div>
+              <ListaMenajes mensajes={hilo.mensajes} />
+              <NuevoPost />
           </div>
-          <ListaMenajes mensajes={hilo.mensajes} />
-          <NuevoPost />
-      </div>
+        </>
     );
 }
 function Mensaje({mensaje}){

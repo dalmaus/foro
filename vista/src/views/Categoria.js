@@ -3,6 +3,7 @@ import {getCategoria} from "../api/CategoriaApi";
 import NuevoPost from "../components/NuevoPost";
 import {useState} from "react";
 import {parseaFecha} from "../functions/functions";
+import Header from "../components/Header";
 
 export async function loader({params}) {
     const categoria = getCategoria(params.categoriaId);
@@ -11,21 +12,23 @@ export async function loader({params}) {
 
 function Categoria(){
     const categoriaDatos = useLoaderData();
-    console.log(categoriaDatos)
     const [categoria, setCategoria] = useState(categoriaDatos);
     const goToNuevoPost = () => {
         const nuevoPost = document.getElementById("nuevo-post");
         nuevoPost.scrollIntoView({behavior: "smooth"});
     };
     return(
-        <div className="categoria card">
-            <div className="titulo-button">
-                <h2 className="titulo">{categoria.nombre}</h2>
-                <button onClick={goToNuevoPost}>Nuevo tema</button>
+        <>
+            <Header />
+            <div className="categoria card">
+                <div className="titulo-button">
+                    <h2 className="titulo">{categoria.nombre}</h2>
+                    <button onClick={goToNuevoPost}>Nuevo tema</button>
+                </div>
+                <ListaHilos hilos={categoria.hilos}/>
+                <NuevoPost datos={categoria} setDatos={setCategoria}/>
             </div>
-            <ListaHilos hilos={categoria.hilos}/>
-            <NuevoPost datos={categoria} setDatos={setCategoria}/>
-        </div>
+        </>
     );
 }
 

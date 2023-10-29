@@ -2,17 +2,18 @@
 
     declare(strict_types=1);
     require_once "../_mixto/Utilidades.php";
+    define("NO_LOGUEADO", "Acceso denegado");
 
     session_start();
 
-    function siSesionIniciada()
+    function sesionIniciada()
     {
         return comprobarRenovarSesion();
     }
 
-    function salirSiSesionFalla()
+    function salirSiSesionFalla(): array
     {
-        if (!comprobarRenovarSesion()) redireccionar("SesionFormulario.php");
+        return ["NO_LOGUEADO" => true];
     }
 
     function comprobarRenovarSesion(): bool
@@ -29,7 +30,6 @@
                 generarRenovarSesionCookie();
                 return true;
             } else { // Ni RAM, ni cookie
-
                 return false;
             }
         }
@@ -118,7 +118,7 @@
         session_destroy();
     }
 
-    function siSesionNoIniciada(string $usuario_json): bool
+    function loginJson(string $usuario_json): ?array //POST
     {
         $request_body = json_decode($usuario_json, true); //json via post
 
@@ -129,8 +129,22 @@
             if (isset($request_body["recuerdame"])) {
                 generarRenovarSesionCookie();
             }
-            return true;
+            return $usuario;
         } else {
-            return false;
+            return null;
+        }
+    }
+    function login(string $nombre, string $contrasenna): ?array //GET
+    {
+        $usuario = obtenerUsuarioPorContrasenna($nombre, $contrasenna);
+
+        if ($usuario) { // Equivale a if ($usuario != null)
+            generarSesionRAM($usuario);
+            if (isset($request_body["recuerdame"])) {
+                generarRenovarSesionCookie();
+            }
+            return $usuario;
+        } else {
+            return null;
         }
     }

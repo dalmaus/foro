@@ -2,10 +2,15 @@
     require_once "Categoria.php";
     require_once "../_mixto/DAO.php";
     require_once "../_mixto/Utilidades.php";
-
-    $categoria = Categoria::obtenerPorId($_REQUEST["categoria"]);
-    $categoria->obtenerHilosConUsuario();
+    require_once "../sesion/_Sesion.php";
 
     headers();
-    echo json_encode($categoria, JSON_UNESCAPED_UNICODE);
+    if(sesionIniciada()) {
+        $categoria = Categoria::obtenerPorId($_REQUEST["categoria"]);
+        $categoria->obtenerHilosConUsuario();
+
+        echo json_encode($categoria, JSON_UNESCAPED_UNICODE);
+    }else{
+        echo json_encode(salirSiSesionFalla());
+    }
 ?>
