@@ -3,7 +3,6 @@ import {Link, useLoaderData} from "react-router-dom";
 import ListaMensajes from "../components/ListaMensajes";
 import avatar from "../img/avatar.png";
 import {parseaFecha} from "../functions/functions";
-import Header from "../components/Header";
 
 export async function loader({params}) {
     const usuario = getUsuario(params.usuarioId);
@@ -14,7 +13,6 @@ function Usuario(){
     const usuario = useLoaderData();
     return(
         <>
-              <Header />
               <div className="usuario">
                 <div className="datos-usuario">
                     <div className="avatar">

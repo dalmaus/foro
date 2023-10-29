@@ -1,4 +1,5 @@
 import {parseaFecha} from "../functions/functions";
+import {Link} from "react-router-dom";
 
 function MensajeUsuario({usuario, mensaje}) { //para la página de usuario
     return (
@@ -6,7 +7,7 @@ function MensajeUsuario({usuario, mensaje}) { //para la página de usuario
             <div className="mensaje card-border">
                 <div>
                     <div>
-                        <span className="nombre-usuario">{usuario.nombre}</span>
+                        <span className="nombre-usuario"><Link to={`/hilo/${mensaje.hilo_id}`}>{usuario.nombre}</Link></span>
                         <span className="usuario-fecha">{parseaFecha(mensaje.fecha)}</span>
                     </div>
                     <button className="menu-button">

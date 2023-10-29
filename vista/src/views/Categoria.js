@@ -3,7 +3,6 @@ import {getCategoria} from "../api/CategoriaApi";
 import NuevoPost from "../components/NuevoPost";
 import {useState} from "react";
 import {parseaFecha} from "../functions/functions";
-import Header from "../components/Header";
 
 export async function loader({params}) {
     const categoria = getCategoria(params.categoriaId);
@@ -19,7 +18,6 @@ function Categoria(){
     };
     return(
         <>
-            <Header />
             <div className="categoria card">
                 <div className="titulo-button">
                     <h2 className="titulo">{categoria.nombre}</h2>

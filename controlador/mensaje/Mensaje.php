@@ -9,7 +9,6 @@ class Mensaje extends Dato implements JsonSerializable
 
     private int $usuario_id;
     private int $hilo_id;
-    private ?string $titulo = null; //cambiar en BBDD
     private string $contenido;
     private ?Usuario $usuario = null;
     private string $fecha;
@@ -17,16 +16,14 @@ class Mensaje extends Dato implements JsonSerializable
     /**
      * @param int $usuario_id
      * @param int $hilo_id
-     * @param string $titulo
      * @param string $contenido
      * @param DateTime $fecha
      */
-    public function __construct(int $id, int $usuario_id, int $hilo_id, ?string $titulo, string $contenido, string $fecha)
+    public function __construct(int $id, int $usuario_id, int $hilo_id, string $contenido, string $fecha)
     {
         parent::__construct($id);
         $this->usuario_id = $usuario_id;
         $this->hilo_id = $hilo_id;
-        $this->titulo = $titulo;
         $this->contenido = $contenido;
         $this->fecha = $fecha;
     }
@@ -122,9 +119,9 @@ class Mensaje extends Dato implements JsonSerializable
         return $this->usuario;
     }
 
-    public static function crear(int $usuario_id, int $hilo_id, ?string $titulo, string $contenido): ?Mensaje
+    public static function crear(int $usuario_id, int $hilo_id, string $contenido): ?Mensaje
     {
-        return DAO::mensajeCrear($usuario_id, $hilo_id, $titulo, $contenido);
+        return DAO::mensajeCrear($usuario_id, $hilo_id, $contenido);
     }
 
     /**
@@ -136,7 +133,7 @@ class Mensaje extends Dato implements JsonSerializable
         return [
           "id" => $this->id,
             "usuario_id" => $this->usuario_id,
-            "titulo" => $this->titulo,
+            "hilo_id" => $this->hilo_id,
             "contenido" => $this->contenido,
             "usuario" => $this->usuario,
             "fecha" => $this->fecha,

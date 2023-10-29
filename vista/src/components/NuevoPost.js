@@ -5,7 +5,8 @@ function NuevoPost({datos, setDatos}) {
         evento.preventDefault();
         const titulo = evento.target.titulo.value;
         const contenido = evento.target.contenido.value;
-        await fetch(`http://localhost/EntornoServidor/foro/controlador/hilo/Create.php?usuario_id=1&categoria_id=1&titulo=${titulo}&contenido=${contenido}`)
+        const usuarioId = localStorage.getItem("usuario_id");
+        await fetch(`http://localhost/EntornoServidor/foro/controlador/hilo/Create.php?usuario_id=1&categoria_id=${usuarioId}&titulo=${titulo}&contenido=${contenido}`, {credentials: 'include'})
             .then(respuesta => respuesta.json()
                 .then(hilo => {
                     datos.hilos.push(hilo);
@@ -13,6 +14,18 @@ function NuevoPost({datos, setDatos}) {
                 })
             );
         evento.target.reset();
+    }
+    function onFormularioChange(evento){
+        const titulo = document.querySelector("#titulo");
+        const contenido = document.querySelector("#contenido");
+        const boton = document.querySelector("#nuevo-tema-button");
+
+        if(titulo.value.length > 2 && contenido.value.length > 2 ){
+
+            boton.removeAttribute("disabled");
+        }else{
+            boton.setAttribute("disabled", true);
+        }
     }
     return (
         <div>
@@ -28,13 +41,13 @@ function NuevoPost({datos, setDatos}) {
                         }
                         <input hidden name="usuario_id" defaultValue="1" />
                         <div className="input-div">
-                            <input placeholder="Titulo..." name="titulo" type="text" pattern="[A-z0-9,.\-'+`;@]{3,}"/>
+                            <input id="titulo" placeholder="Titulo..." name="titulo" type="text" pattern="[A-z0-9,.\-'+`;@]{3,}" onChange={onFormularioChange}/>
                         </div>
                         <div className="input-div">
-                            <textarea name="contenido" rows="7" placeholder="Escribe aquí tu mensaje..."/>
+                            <textarea id="contenido" name="contenido" rows="7" placeholder="Escribe aquí tu mensaje..." onChange={onFormularioChange}/>
                         </div>
                         <div className="button-div">
-                            <button type="submit" disabled>
+                            <button id="nuevo-tema-button" type="submit" disabled>
                                 Enviar
                             </button>
                         </div>

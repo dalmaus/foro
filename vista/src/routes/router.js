@@ -1,5 +1,5 @@
 import {createBrowserRouter} from "react-router-dom";
-import Root from "../views/Root";
+import Root, {loader as rootLoader} from "../views/Root";
 import React from "react";
 import Error from "../views/Error";
 import {estaAutorizado} from "../functions/functions";
@@ -10,6 +10,7 @@ const router =  createBrowserRouter([{
 
     path: "/",
     element: <Root />,
+    loader: rootLoader,
     errorElement: <Error />,
     children: await estaAutorizado() ? RutasPrivadas() : RutasPublicas()
 

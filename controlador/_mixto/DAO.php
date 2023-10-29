@@ -346,8 +346,7 @@ class DAO
 
     private static function mensajeCrearDesdeFila(array $fila): Mensaje
     {
-        return new Mensaje($fila["id"], $fila["usuario_id"], $fila["hilo_id"],
-            $fila["titulo"], $fila["contenido"], $fila["fecha"]);
+        return new Mensaje($fila["id"], $fila["usuario_id"], $fila["hilo_id"], $fila["contenido"], $fila["fecha"]);
     }
 
     public static function mensajesObtenerTodos(): array
@@ -366,11 +365,11 @@ class DAO
         return $datos;
     }
 
-    public static function mensajeCrear(int $usuario_id, int $hilo_id, string $titulo, string $contenido): ?Mensaje
+    public static function mensajeCrear(int $usuario_id, int $hilo_id, string $contenido): ?Mensaje
     {
         $idAutogenerado = self::ejecutarInsert(
-            "INSERT INTO mensaje (usuario_id, hilo_id, titulo, contenido) VALUES (?, ?, ?, ?)",
-            [$usuario_id, $hilo_id, $titulo, $contenido]
+            "INSERT INTO mensaje (usuario_id, hilo_id, contenido) VALUES (?, ?, ?)",
+            [$usuario_id, $hilo_id, $contenido]
         );
 
         if ($idAutogenerado == null) return null;
@@ -439,12 +438,12 @@ class DAO
         return $datos;
     }
 
-    public static function mensajesObtenerPorHilo(int $id): array
+    public static function mensajesObtenerPorHilo(int $hilo_id): array
     {
         $rs = self::ejecutarConsulta('SELECT * FROM mensaje 
-        WHERE id=?
+        WHERE hilo_id=?
         ORDER BY fecha',
-            [$id]);
+            [$hilo_id]);
 
         $datos = [];
         foreach ($rs as $fila) {
@@ -473,7 +472,7 @@ class DAO
     {
         $rs = self::ejecutarConsulta('SELECT * FROM mensaje 
         WHERE usuario_id=?
-        ORDER BY fecha LIMIT 4',
+        ORDER BY fecha DESC LIMIT 4',
             [$id_usuario]);
 
         $datos = [];
@@ -488,7 +487,7 @@ class DAO
     {
         $rs = self::ejecutarConsulta('SELECT * FROM hilo 
         WHERE usuario_id=?
-        ORDER BY fecha LIMIT 4',
+        ORDER BY fecha DESC LIMIT 4',
             [$id_usuario]
         );
 

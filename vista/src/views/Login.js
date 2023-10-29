@@ -4,18 +4,25 @@ import {useState} from "react";
 
 export function Login(){
 
+    const [checked, setChecked] = useState(false);
     const [formDatos, setFormDatos] = useState({
         nombre: "usuario1",
-        contrasenna: "password1"
+        contrasenna: "password1",
     });
+
     const navigate = useNavigate();
 
     function onFormDatosChange(evento){
         const { name, value } = evento.target;
-        setFormDatos((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
+        if(name === "recuerdame"){ //recuerdame
+            setChecked(!checked);
+            formDatos.recuerdame = !checked;
+        }else{
+            setFormDatos((prevState) => ({
+                ...prevState,
+                [name]: value,
+            }));
+        }
     }
 
     async function handleSubmit(evento) {
@@ -31,7 +38,7 @@ export function Login(){
         if(login){
             navigate(0);
         }else{
-            console.log("asfasdf")
+            console.log("Login erróneo.")
         }
     }
 
@@ -59,8 +66,8 @@ export function Login(){
                                onChange={(e) => onFormDatosChange(e)}/>
                     </div>
                     <div className="recuerdame">
-                        <input type='checkbox' name='recuerdame' defaultValue={formDatos.recuerdame}
-                               onChange={e => onFormDatosChange(e)}/>
+                        <input type='checkbox' name='recuerdame'  defaultChecked={checked}
+                               onChange={(e) => onFormDatosChange(e)}/>
                         <label htmlFor="recuerdame">Recuérdame</label>
                     </div>
                     <div className="login-link">

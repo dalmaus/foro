@@ -1,20 +1,16 @@
 import {Link, useLoaderData} from "react-router-dom";
 import {getCategorias} from "../api/CategoriaApi";
-import Header from "../components/Header";
 
 function Home(){
-
     const categorias = useLoaderData();
-
-    return (
-        <>
-            <Header />
-            <div className="card home">
-                <h1 className="titulo">Categorías</h1>
-                <ListaCategorias categorias={categorias} />
-            </div>
-        </>
-    );
+        return (
+            <>
+                <div className="card home">
+                    <h1 className="titulo">Categorías</h1>
+                    <ListaCategorias categorias={categorias}/>
+                </div>
+            </>
+        );
 }
 
 export async function loader() {

@@ -54,11 +54,15 @@ header .nav-usuario, header .inicio-link{
   display: flex;
   align-items: center;
 }
-header span img{
+header div img{
   width: 35px;
   height: auto;
   border: 1px solid var(--borderColor);
   border-radius: 50%;
+  margin: 0 25px;
+}
+header div img{
+  cursor: pointer;
 }
 header .flex-container{
   display: flex;
@@ -203,10 +207,7 @@ ul{
   padding: 8px 20px;
   cursor: pointer;
 }
-.nuevo-post button:disabled, .registro button:disabled, .login button:disabled{
-  background-color: #94D3A2;
-  cursor: not-allowed;
-}
+
 .nuevo-post span{
   display: inline-block;
   position: relative;
@@ -442,5 +443,67 @@ ul{
 }
 footer{
   margin-top: 50px;
+  padding: 15px;
+}
+.nuevo-post button:disabled, .registro button:disabled, .login button:disabled{
+  background-color: #94D3A2;
+  cursor: not-allowed;
+}
+.titulo-button button:hover{
+  cursor: pointer;
+}
+.hilo .hilo-mensaje{
+  margin: 15px 0;
+}
+
+.hilo-mensaje .usuario-fecha{
+  justify-content: space-between;
+}
+.hilo-mensaje .usuario-fecha div:first-of-type{
+  display: flex;
+  gap: 10px;
+}
+.hilo .card-border{
+  padding: 25px 0;
+  text-align: center;
+}
+
+.hilo-mensaje p{
+  padding: 30px 0;
+  text-align: left;
+}
+header .desplegable {
+  position: relative;
+  display: inline-block;
+}
+header .desplegable-contenido{
+  display: none;
+  position: absolute;
+  border-radius: 2px;
+  background-color: #dcdcdc;
+}
+header .desplegable-contenido{
+  display: none;
+}
+header .desplegable:hover .desplegable-contenido{
+  display: block;
+  width: 120px;
+  left: -25px;
+}
+header .desplegable a{
+  color: black;
+}
+header .usuario-enlace a{
+  color: var(--enlaceColor);
+}
+header .inicio-link a{
+  color: black;
+}
+header .desplegable:hover .desplegable-contenido a{
+
+  display: block;
+  padding: 2px 10px;
+  border-radius: 2px;
+  border-bottom: 1px solid var(--borderColorInput);
 }
 

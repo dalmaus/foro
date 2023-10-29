@@ -2,7 +2,6 @@
 
     declare(strict_types=1);
     require_once "../_mixto/Utilidades.php";
-    define("NO_LOGUEADO", "Acceso denegado");
 
     session_start();
 
@@ -81,7 +80,6 @@
         // El resto son por evitar accesos a la BD a cambio del riesgo
         // de que mis datos en sesión RAM estén obsoletos.
         $_SESSION["id"] = $usuario["id"];
-        $_SESSION["nombre"] = $usuario["nombre"];
     }
 
     function generarRenovarSesionCookie()
@@ -102,7 +100,43 @@
         setcookie('codigoCookie', $codigoCookie, $fechaCaducidad);
     }
 
-    function cerrarSesion()
+    function loginJson(string $usuario_json): ?array //POST
+    {
+        $request_body = json_decode($usuario_json, true); //json via post
+
+        $usuario = obtenerUsuarioPorContrasenna($request_body["nombre"], $request_body["contrasenna"]);
+        if ($usuario) { // Equivale a if ($usuario != null)
+            generarSesionRAM($usuario);
+            generarCookiesDatosUsuario($usuario);
+            if (isset($request_body["recuerdame"]) && $request_body["recuerdame"] === true) {
+                generarRenovarSesionCookie();
+            }
+            return $usuario;
+        } else {
+            return null;
+        }
+    }
+    function generarCookiesDatosUsuario(array $usuario): void
+    {
+        setcookie('usuario_id', strval($usuario['id']), 500000, "", "", false, false);
+        setcookie('usuario_nombre', $usuario['nombre'], 500000, "", "", false, false);
+    }
+    function login(string $nombre, string $contrasenna): ?array //GET
+    {
+        $usuario = obtenerUsuarioPorContrasenna($nombre, $contrasenna);
+
+        if ($usuario) { // Equivale a if ($usuario != null)
+            generarSesionRAM($usuario);
+            generarCookiesDatosUsuario($usuario);
+            if (isset($request_body["recuerdame"]) && $request_body["recuerdame"] === true) {
+                generarRenovarSesionCookie();
+            }
+            return $usuario;
+        } else {
+            return null;
+        }
+    }
+    function cerrarSesion(): bool
     {
         // Eliminar de la BD el codigoCookie y su caducidad.
         $conexion = obtenerPdoConexionBD();
@@ -116,35 +150,6 @@
 
         // Destruir sesión RAM (implica borrar cookie de PHP "PHPSESSID").
         session_destroy();
-    }
 
-    function loginJson(string $usuario_json): ?array //POST
-    {
-        $request_body = json_decode($usuario_json, true); //json via post
-
-        $usuario = obtenerUsuarioPorContrasenna($request_body["nombre"], $request_body["contrasenna"]);
-
-        if ($usuario) { // Equivale a if ($usuario != null)
-            generarSesionRAM($usuario);
-            if (isset($request_body["recuerdame"])) {
-                generarRenovarSesionCookie();
-            }
-            return $usuario;
-        } else {
-            return null;
-        }
-    }
-    function login(string $nombre, string $contrasenna): ?array //GET
-    {
-        $usuario = obtenerUsuarioPorContrasenna($nombre, $contrasenna);
-
-        if ($usuario) { // Equivale a if ($usuario != null)
-            generarSesionRAM($usuario);
-            if (isset($request_body["recuerdame"])) {
-                generarRenovarSesionCookie();
-            }
-            return $usuario;
-        } else {
-            return null;
-        }
+        return true;
     }

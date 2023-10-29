@@ -2,7 +2,7 @@
     require_once "Hilo.php";
     require_once "../_mixto/DAO.php";
     require_once "../_mixto/Utilidades.php";
-    require_once "../sesion/_Sesion.php";
+    require_once "../_sesion/_Sesion.php";
 
     headers();
     if(sesionIniciada()) {
