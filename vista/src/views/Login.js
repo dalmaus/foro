@@ -3,7 +3,6 @@ import urls from "../api/_constants";
 import {useState} from "react";
 
 export function Login(){
-
     const [checked, setChecked] = useState(false);
     const [formDatos, setFormDatos] = useState({
         nombre: "usuario1",

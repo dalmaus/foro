@@ -1,8 +1,10 @@
-import {Link, useLoaderData} from "react-router-dom";
+import {Link, Navigate, useLoaderData} from "react-router-dom";
 import {getCategorias} from "../api/CategoriaApi";
 
 function Home(){
     const categorias = useLoaderData();
+
+    if(!categorias.NO_LOGUEADO) {
         return (
             <>
                 <div className="card home">
@@ -11,6 +13,12 @@ function Home(){
                 </div>
             </>
         );
+    }else{
+        window.location.reload();
+        return (
+          <Navigate to="/auth/login" replace />
+        );
+    }
 }
 
 export async function loader() {

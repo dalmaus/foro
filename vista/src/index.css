@@ -506,4 +506,7 @@ header .desplegable:hover .desplegable-contenido a{
   border-radius: 2px;
   border-bottom: 1px solid var(--borderColorInput);
 }
+.login, .registro{
+  padding: 5vh 0;
+}
 

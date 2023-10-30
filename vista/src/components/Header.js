@@ -24,7 +24,7 @@ export function Header({usuarioDatos}){
                               <img src={avatar} alt="avatar del usuario"/>
                               <div className="desplegable-contenido">
                                   <Link to={`/usuario/${usuarioDatos.id}`}>Perfil</Link>
-                                  <Link to="/auth/login" onClick={cerrarSesion}>Cerrar sesión</Link>
+                                  <Link to="/" onClick={cerrarSesion}>Cerrar sesión</Link>
                               </div>
                           </div>
                       </div>

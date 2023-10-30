@@ -17,7 +17,8 @@ export function parseaFecha(fecha){
 
 export async function estaAutorizado(){
 
-    const autorizado = await fetch(urls.USUARIO_AUTENTICADO_ENDPOINT, {credentials: 'include'}).then(respuesta => {return respuesta.json()})
+    let autorizado = {};
 
+    await fetch(urls.USUARIO_AUTENTICADO_ENDPOINT, {credentials: 'include'}).then(respuesta => autorizado = respuesta.json());
     return autorizado;
 }

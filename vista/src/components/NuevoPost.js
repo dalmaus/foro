@@ -5,8 +5,7 @@ function NuevoPost({datos, setDatos}) {
         evento.preventDefault();
         const titulo = evento.target.titulo.value;
         const contenido = evento.target.contenido.value;
-        const usuarioId = localStorage.getItem("usuario_id");
-        await fetch(`http://localhost/EntornoServidor/foro/controlador/hilo/Create.php?usuario_id=1&categoria_id=${usuarioId}&titulo=${titulo}&contenido=${contenido}`, {credentials: 'include'})
+        await fetch(`http://localhost/EntornoServidor/foro/controlador/hilo/Create.php?categoria_id=${datos.id}&titulo=${titulo}&contenido=${contenido}`, {credentials: 'include'})
             .then(respuesta => respuesta.json()
                 .then(hilo => {
                     datos.hilos.push(hilo);

@@ -11,6 +11,7 @@ export default function RutasPrivadas() {
         {
             path: "/",
             element: <Navigate to="/home" replace/>,
+            errorElement: <Error />
         },
         {
             path: "home",

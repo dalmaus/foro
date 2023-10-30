@@ -1,10 +1,11 @@
-import {Outlet, useLoaderData} from "react-router-dom";
+import {Outlet, redirect, useLoaderData, useNavigate} from "react-router-dom";
 import Footer from "../components/Footer";
 import {getUsuarioDatos} from "../api/UsuarioApi";
 import Header from "../components/Header";
 
 export async function loader(){
-    return await getUsuarioDatos();
+    const datosUsuario = await getUsuarioDatos();
+    return datosUsuario;
 }
 
 export default function Root() {
@@ -15,7 +16,7 @@ export default function Root() {
             <>
                 <Header usuarioDatos={usuarioDatos}/>
                 <div id="detail">
-                    <Outlet/>
+                    <Outlet />
                 </div>
                 <Footer/>
             </>
@@ -24,7 +25,7 @@ export default function Root() {
         return (
             <>
                 <div id="detail">
-                    <Outlet/>
+                    <Outlet />
                 </div>
                 <Footer/>
             </>
