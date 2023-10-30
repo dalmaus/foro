@@ -1,24 +1,18 @@
-import {Link, Navigate, useLoaderData} from "react-router-dom";
+import {Link, useLoaderData} from "react-router-dom";
 import {getCategorias} from "../api/CategoriaApi";
 
 function Home(){
     const categorias = useLoaderData();
 
-    if(!categorias.NO_LOGUEADO) {
-        return (
-            <>
-                <div className="card home">
-                    <h1 className="titulo">Categorías</h1>
-                    <ListaCategorias categorias={categorias}/>
-                </div>
-            </>
-        );
-    }else{
-        window.location.reload();
-        return (
-          <Navigate to="/auth/login" replace />
-        );
-    }
+    return (
+        <>
+            <div className="card home">
+                <h1 className="titulo">Categorías</h1>
+                <ListaCategorias categorias={categorias}/>
+            </div>
+        </>
+    );
+
 }
 
 export async function loader() {

@@ -5,7 +5,10 @@
 
     headers();
     if(sesionIniciada()){
-        echo json_encode(Hilo::obtenerPorId($_REQUEST["hilo"]), JSON_UNESCAPED_UNICODE);
+        $usuario_id = $_SESSION["id"];
+        $hilo_id = $_REQUEST["hilo"];
+
+        echo json_encode(Hilo::eliminar($hilo_id, $usuario_id), JSON_UNESCAPED_UNICODE);
     }else{
         echo json_encode(null);
     }

@@ -3,6 +3,9 @@
     require_once "_Sesion.php";
 
     headers();
-    echo json_encode(cerrarSesion());
-
+    if(sesionIniciada()){
+        echo json_encode(cerrarSesion());
+    }else{
+        echo json_encode(null);
+    }
 ?>

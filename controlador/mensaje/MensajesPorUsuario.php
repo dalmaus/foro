@@ -1,11 +1,11 @@
 <?php
     require_once "../_sesion/_Sesion.php";
-    require_once "Hilo.php";
     require_once "../_mixto/Utilidades.php";
+    require_once "Mensaje.php";
 
     headers();
     if(sesionIniciada()){
-        echo json_encode(Hilo::obtenerPorId($_REQUEST["hilo"]), JSON_UNESCAPED_UNICODE);
+        echo json_encode(Mensaje::obtenerTodosPorIdUsuario($_SESSION["id"]));
     }else{
         echo json_encode(null);
     }

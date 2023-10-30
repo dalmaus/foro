@@ -406,7 +406,7 @@ ul{
 .hilo .hilo-mensaje .usuario-fecha {
   display: flex;
 }
-.hilo .fecha{
+.hilo .fecha, .perfil-hilos .fecha{
   font-size: 12px;
   color: var(--descripcionColor);
 }
@@ -510,3 +510,78 @@ header .desplegable:hover .desplegable-contenido a{
   padding: 5vh 0;
 }
 
+.perfil.card-border{
+  display: inline-block;
+  padding: 35px 30px;
+}
+.perfil input{
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  color: #4b4b4b;
+  margin: 15px 0;
+  padding: 6px 2px;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px gray;
+}
+.perfil .perfil-nombre{
+  font-size: 22px;
+  padding-top: 10px;
+  text-align: right;
+}
+.perfil a{
+  color: black;
+}
+.perfil input::placeholder{
+  font-size: 16px;
+}
+.perfil img{
+  display: inline-block;
+  height: 250px;
+
+  border: 1px solid #a4a4a4;
+  border-radius: 50%;
+}
+.perfil{
+  display: flex;
+  justify-content: center;
+}
+.perfil input:focus-visible{
+  outline: none;
+}
+.perfil form div{
+  padding-top: 15px;
+}
+
+.perfil-hilos{
+  display: flex;
+  justify-content: center;
+}
+.perfil-hilos ul{
+  width: 45%;
+}
+.perfil-hilos a{
+  color: black;
+}
+
+.perfil-hilos button{
+  border: 1px solid red;
+  color: red;
+  background-color: transparent;
+  border-radius: var(--borderRadiusCard);
+  padding: 3px 6px;
+}
+.perfil-hilos .titulo-button{
+  display: flex;
+  justify-content: space-between;
+}
+.perfil-hilos-item{
+  padding: 20px 18px;
+  margin: 15px 0;
+}
+.perfil-hilos .fecha{
+  margin-top: 35px;
+}
+.perfil-hilos .error{
+  padding: 15px;
+}

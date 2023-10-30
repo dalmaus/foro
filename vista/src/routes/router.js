@@ -1,22 +1,26 @@
-import {createBrowserRouter, Navigate} from "react-router-dom";
+import {createBrowserRouter, Navigate, Outlet} from "react-router-dom";
 import Root, {loader as rootLoader} from "../views/Root";
 import React from "react";
 import Error from "../views/Error";
-import {estaAutorizado} from "../functions/functions";
-import RutasPublicas from "./rutas-publicas";
 import RutasPrivadas from "./rutas-privadas";
+import RutasPublicas from "./rutas-publicas";
 
 const router =  createBrowserRouter([
     {
-        path: "*",
-        element: <Navigate to="/" />
+        path: "/",
+        element: <Navigate to="/login" replace/>,
     },
     {
         path: "/",
-        element: <Root/>,
         loader: rootLoader,
-        errorElement: <Error/>,
-        children: await estaAutorizado() ? RutasPrivadas() : RutasPublicas()
+        element: <Root />,
+        //errorElement: <Error/>,
+        children: RutasPrivadas(),
+    },
+    {
+        element: <div><Outlet/></div>,
+        children: RutasPublicas(),
     }
+
 ]);
 export default router;

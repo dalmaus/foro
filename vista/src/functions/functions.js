@@ -1,4 +1,6 @@
 import urls from "../api/_constants";
+import {usuarioCerrarSesion} from "../api/UsuarioApi";
+import {redirect} from "react-router-dom";
 
 export function parseaFecha(fecha){
     const fechaParseada = new Date(fecha);
@@ -21,4 +23,19 @@ export async function estaAutorizado(){
 
     await fetch(urls.USUARIO_AUTENTICADO_ENDPOINT, {credentials: 'include'}).then(respuesta => autorizado = respuesta.json());
     return autorizado;
+}
+
+export async function redirectSiLogueado(){
+    const logueado = await estaAutorizado();
+    if(logueado){
+        return redirect("/home");
+    }
+    else{
+        return null;
+    }
+}
+
+export async function cerrarSesion() {
+    await usuarioCerrarSesion();
+    return redirect("/login")
 }

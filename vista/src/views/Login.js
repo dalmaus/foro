@@ -35,7 +35,7 @@ export function Login(){
                 })
             );
         if(login){
-            navigate(0);
+            navigate("/home")
         }else{
             console.log("Login erróneo.")
         }
@@ -71,7 +71,7 @@ export function Login(){
                     </div>
                     <div className="login-link">
                         <span>¿Aún no te has registrado?</span>
-                        <Link to={`/auth/registro`}>Regístrate</Link>
+                        <Link to={`/registro`}>Regístrate</Link>
                     </div>
                     <div>
                         <button type="submit">

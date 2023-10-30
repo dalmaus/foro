@@ -32,6 +32,11 @@ class Usuario extends Dato implements JsonSerializable
         return DAO::usuarioObtenerPorId($id);
     }
 
+    public function actualizar(): ?Usuario
+    {
+        return DAO::usuarioActualizar($this);
+    }
+
     /**
      * @return string
      */
@@ -134,12 +139,11 @@ class Usuario extends Dato implements JsonSerializable
         return [
           "id" => $this->id,
           "nombre" => $this->nombre,
-          "contraseña" => $this->contrasenna,
           "bio" => $this->bio,
           "lugar" => $this->lugar,
           "hilos" => $this->hilos,
           "mensajes" => $this->mensajes,
-
+          "correo" => $this->correo,
         ];
     }
 }

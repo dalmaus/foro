@@ -1,18 +1,16 @@
+import React from "react";
 import Error from "../views/Error";
 import Home, {loader as homeLoader} from "../views/Home";
 import Categoria, {loader as categoriaLoader} from "../views/Categoria";
 import Hilo, {loader as hiloLoader} from "../views/Hilo";
 import Usuario, {loader as usuarioLoader} from "../views/Usuario";
-import React from "react";
-import {Navigate} from "react-router-dom";
+import Perfil, {loader as perfilLoader} from "../views/Perfil";
+import PerfilHilos, {loader as perfilHilosLoader} from "../views/PerfilHilos";
+import PerfilMensajes, {loader as perfilMensajesLoader} from "../views/PerfilMensajes";
+
 
 export default function RutasPrivadas() {
     return [
-        {
-            path: "/",
-            element: <Navigate to="/home" replace/>,
-            errorElement: <Error />
-        },
         {
             path: "home",
             element: <Home />,
@@ -35,13 +33,19 @@ export default function RutasPrivadas() {
             loader: usuarioLoader,
         },
         {
-            path: "/auth/registro",
-            element: <Navigate to="/" replace/>
+            path: "perfil",
+            element: <Perfil />,
+            loader: perfilLoader,
         },
         {
-            path: "/auth/login",
-            element: <Navigate to="/" replace/>
+            path: "perfil/hilos",
+            element: <PerfilHilos />,
+            loader: perfilHilosLoader,
+        },
+        {
+            path: "perfil/mensajes",
+            element: <PerfilMensajes />,
+            loader: perfilMensajesLoader,
         }
     ]
-
 }

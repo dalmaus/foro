@@ -22,3 +22,10 @@ export async function usuarioCerrarSesion(){
         .then(respuesta => dato = respuesta.json());
     return dato;
 }
+export async function updateUsuario(datos){
+    console.log(datos);
+    let dato = {};
+    await fetch(`${urls.USUARIO_UPDATE_ENDPOINT}?bio=${datos.bio}&lugar=${datos.lugar}&correo=${datos.correo}`, {credentials: 'include'})
+        .then(respuesta => dato = respuesta.json());
+    return dato;
+}

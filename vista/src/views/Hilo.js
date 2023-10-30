@@ -69,7 +69,6 @@ function ListaMenajes({mensajes}){
             <div className="card-border">
                 <h3 className="error">Aún no hay mensajes en este hilo</h3>
             </div>
-
         );
     }
 }

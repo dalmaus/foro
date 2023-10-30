@@ -220,9 +220,14 @@ class DAO
 
     public static function usuarioActualizar(Usuario $usuario): ?Usuario
     {
-        $filasAfectadas = Self::ejecutarUpdel(
-            "UPDATE persona SET nombre=?, correo=? WHERE id=?",
-            [$usuario->getNombre(), $usuario->getCorreo()]
+        $filasAfectadas = self::ejecutarUpdel(
+            "UPDATE usuario SET bio=?, lugar=?, correo=? WHERE id=?",
+            [
+                $usuario->getBio(),
+                $usuario->getLugar(),
+                $usuario->getCorreo(),
+                $usuario->getId()
+            ]
         );
 
         if ($filasAfectadas == null) return null;
@@ -288,6 +293,22 @@ class DAO
         return $datos;
     }
 
+    public static function hilosObtenerPorIdUsuario(int $usuario_id): ?array
+    {
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM hilo WHERE usuario_id=? ORDER BY fecha DESC",
+            [$usuario_id]
+        );
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $mensaje = self::hiloCrearDesdeFila($fila);
+            $datos[] = $mensaje;
+        }
+
+        return $datos;
+    }
+
     public static function hiloCrear(int $usuario_id, int $categoria_id, string $titulo, string $contenidoMensaje): ?Hilo
     {
         $conexion = self::obtenerPdoConexionBD();
@@ -321,11 +342,11 @@ class DAO
         else return $hilo;
     }
 
-    public static function hiloEliminarPorId(int $id): bool
+    public static function hiloEliminarPorId(int $id, int $usuario_id): bool
     {
         $filasAfectadas = self::ejecutarUpdel(
-            "DELETE FROM hilo WHERE id=?",
-            [$id]
+            "DELETE FROM hilo WHERE id=? AND usuario_id=?",
+            [$id, $usuario_id]
         );
 
         return ($filasAfectadas == 1);
@@ -354,6 +375,22 @@ class DAO
         $rs = Self::ejecutarConsulta(
             "SELECT * FROM mensaje ORDER BY fecha",
             []
+        );
+
+        $datos = [];
+        foreach ($rs as $fila) {
+            $mensaje = Self::mensajeCrearDesdeFila($fila);
+            $datos[] = $mensaje;
+        }
+
+        return $datos;
+    }
+
+    public static function mensajesObtenerPorIdUsuario(int $usuario_id)
+    {
+        $rs = Self::ejecutarConsulta(
+            "SELECT * FROM mensaje WHERE usuario_id=? ORDER BY fecha DESC",
+            [$usuario_id]
         );
 
         $datos = [];
@@ -408,11 +445,11 @@ class DAO
         else return $mensaje;
     }
 
-    public static function mensajeEliminarPorId(int $id): bool
+    public static function mensajeEliminarPorId(int $id, int $usuario_id): bool
     {
-        $filasAfectadas = Self::ejecutarUpdel(
-            "DELETE FROM mensaje WHERE id=?",
-            [$id]
+        $filasAfectadas = self::ejecutarUpdel(
+            "DELETE FROM mensaje WHERE id=? AND usuario_id=?",
+            [$id, $usuario_id]
         );
 
         return ($filasAfectadas == 1);
@@ -499,6 +536,8 @@ class DAO
         }
         return $datos;
     }
+
+
 }
 
 

@@ -8,7 +8,6 @@
     if(sesionIniciada()){
         echo json_encode(Categoria::obtenerTodas(), JSON_UNESCAPED_UNICODE);
     }else{
-        echo json_encode(salirSiSesionFalla());
+        echo json_encode(null);
     }
-
 ?>

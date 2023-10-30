@@ -32,6 +32,16 @@ class Hilo extends Dato implements JsonSerializable
         $this->fecha = $fecha;
     }
 
+    public static function obtenerTodosPorIdUsuario(int $usuario_id): ?array
+    {
+        return DAO::hilosObtenerPorIdUsuario($usuario_id);
+    }
+
+    public static function eliminar(int $hilo_id, int $usuario_id): bool
+    {
+        return DAO::hiloEliminarPorId($hilo_id, $usuario_id);
+    }
+
     /**
      * @return int
      */

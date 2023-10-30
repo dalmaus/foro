@@ -28,6 +28,11 @@ class Mensaje extends Dato implements JsonSerializable
         $this->fecha = $fecha;
     }
 
+    public static function eliminar(int $mensaje_id, int $usuario_id): bool
+    {
+        return DAO::mensajeEliminarPorId($mensaje_id, $usuario_id);
+    }
+
     /**
      * @return int
      */
@@ -111,6 +116,11 @@ class Mensaje extends Dato implements JsonSerializable
     public static function obtenerTodos(): array
     {
         return DAO::mensajeObtenerTodos();
+    }
+
+    public static function obtenerTodosPorIdUsuario(int $usuario_id): ?array
+    {
+        return DAO::mensajesObtenerPorIdUsuario($usuario_id);
     }
 
     public function obtenerUsuario(): ?Usuario

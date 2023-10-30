@@ -1,34 +1,25 @@
-import {Outlet, redirect, useLoaderData, useNavigate} from "react-router-dom";
+import {Outlet, redirect} from "react-router-dom";
 import Footer from "../components/Footer";
-import {getUsuarioDatos} from "../api/UsuarioApi";
 import Header from "../components/Header";
+import {estaAutorizado} from "../functions/functions";
 
 export async function loader(){
-    const datosUsuario = await getUsuarioDatos();
-    return datosUsuario;
+    if(await estaAutorizado()){
+        return null;
+    }else{
+        return redirect("/login");
+    }
 }
 
 export default function Root() {
-    const usuarioDatos = useLoaderData();
 
-    if(usuarioDatos) {
         return (
             <>
-                <Header usuarioDatos={usuarioDatos}/>
+                <Header />
                 <div id="detail">
                     <Outlet />
                 </div>
                 <Footer/>
             </>
         );
-    }else{
-        return (
-            <>
-                <div id="detail">
-                    <Outlet />
-                </div>
-                <Footer/>
-            </>
-        );
-    }
 }
