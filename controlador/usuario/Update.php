@@ -6,9 +6,9 @@
     headers();
     if(sesionIniciada()){
         $usuario = Usuario::obtenerPorId($_SESSION["id"]);
-        $usuario->setBio($_REQUEST["bio"]);
-        $usuario->setLugar($_REQUEST["lugar"]);
-        $usuario->setCorreo($_REQUEST["correo"]);
+        $usuario->setBio(trim($_REQUEST["bio"]));
+        $usuario->setLugar(trim($_REQUEST["lugar"]));
+        $usuario->setCorreo(trim($_REQUEST["correo"]));
 
         echo json_encode($usuario->actualizar(), JSON_UNESCAPED_UNICODE);
     }else{

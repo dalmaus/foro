@@ -262,6 +262,11 @@ ul{
 .usuario .datos-usuario{
   margin: 0 auto;
 }
+.usuario .mensajes-hilos{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .usuario .mensaje{
   margin: 8px 0;
   padding: 10px 16px 0;
@@ -497,7 +502,7 @@ header .usuario-enlace a{
   color: var(--enlaceColor);
 }
 header .inicio-link a{
-  color: black;
+  color: var(--enlaceColor);
 }
 header .desplegable:hover .desplegable-contenido a{
 

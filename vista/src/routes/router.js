@@ -19,6 +19,7 @@ const router =  createBrowserRouter([
     },
     {
         element: <div><Outlet/></div>,
+        errorElement: <Error />,
         children: RutasPublicas(),
     }
 

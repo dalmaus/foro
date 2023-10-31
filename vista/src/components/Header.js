@@ -17,12 +17,12 @@ export function Header(){
                       </div>
                       <div className="nav-usuario">
                           <span className="usuario-enlace">
-                              <Link to={`/perfil`}>{usuarioNombre}</Link>
+                              <Link to={`/usuario/${usuarioId}`}>{usuarioNombre}</Link>
                           </span>
                           <div className="desplegable">
                               <img src={avatar} alt="avatar del usuario"/>
                               <div className="desplegable-contenido">
-                                  <Link to={`/usuario/${usuarioId}`}>Perfil</Link>
+                                  <Link to={`/perfil`}>Perfil</Link>
                                   <Link to={`/perfil/hilos`}>Hilos</Link>
                                   <Link to={`/perfil/mensajes`}>Mensajes</Link>
                                   <Link to="/logout">Cerrar sesión</Link>

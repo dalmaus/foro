@@ -15,7 +15,7 @@ CREATE TABLE categoria (
 CREATE TABLE usuario (
     id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(30) NOT NULL UNIQUE,
-    correo VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) NOT NULL UNIQUE,
     contrasenna VARCHAR(255) NOT NULL,
     bio VARCHAR(255),
     lugar VARCHAR(30),
