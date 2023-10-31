@@ -320,7 +320,7 @@ class DAO
                 "INSERT INTO hilo (usuario_id, categoria_id, titulo) VALUES (?, ?, ?)",
                 [$usuario_id, $categoria_id, $titulo]
             );
-            self::mensajeCrear($usuario_id, $idAutogeneradoHilo, $titulo, $contenidoMensaje);
+            self::mensajeCrear($usuario_id, $idAutogeneradoHilo, $contenidoMensaje);
             $conexion->commit();
 
         }catch (PDOException $e){

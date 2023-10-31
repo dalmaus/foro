@@ -3,6 +3,9 @@ import {Link} from "react-router-dom";
 
 export function Header(){
 
+    const usuarioNombre = localStorage.getItem("usuario_nombre");
+    const usuarioId = localStorage.getItem("usuario_id");
+
     return(
           <header>
               <nav>
@@ -14,12 +17,12 @@ export function Header(){
                       </div>
                       <div className="nav-usuario">
                           <span className="usuario-enlace">
-                              <Link to={`/perfil`}>{"Usuario1"}</Link>
+                              <Link to={`/perfil`}>{usuarioNombre}</Link>
                           </span>
                           <div className="desplegable">
                               <img src={avatar} alt="avatar del usuario"/>
                               <div className="desplegable-contenido">
-                                  <Link to={`/usuario/1`}>Perfil</Link>
+                                  <Link to={`/usuario/${usuarioId}`}>Perfil</Link>
                                   <Link to={`/perfil/hilos`}>Hilos</Link>
                                   <Link to={`/perfil/mensajes`}>Mensajes</Link>
                                   <Link to="/logout">Cerrar sesión</Link>

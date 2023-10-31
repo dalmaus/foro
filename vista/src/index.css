@@ -583,5 +583,24 @@ header .desplegable:hover .desplegable-contenido a{
   margin-top: 35px;
 }
 .perfil-hilos .error{
+  padding: 15px 100px;
+}
+.usuario .card-border .error{
   padding: 15px;
+}
+.usuario .detalles{
+  display: flex;
+  padding: 15px 0;
+}
+.usuario .detalles strong{
+  display: block;
+}
+.usuario .detalles strong{
+  margin-right: 15px;
+}
+.card-border .hilos{
+  margin-left: 3px
+}
+.margin-left{
+  margin-left: 8px;
 }

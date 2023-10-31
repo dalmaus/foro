@@ -12,6 +12,8 @@ function NuevoPost({datos, setDatos}) {
                     setDatos({...datos});
                 })
             );
+        const boton = document.querySelector("#nuevo-tema-button");
+        boton.setAttribute("disabled", "");
         evento.target.reset();
     }
     function onFormularioChange(evento){
@@ -40,7 +42,7 @@ function NuevoPost({datos, setDatos}) {
                         }
                         <input hidden name="usuario_id" defaultValue="1" />
                         <div className="input-div">
-                            <input id="titulo" placeholder="Titulo..." name="titulo" type="text" pattern="[A-z0-9,.\-'+`;@]{3,}" onChange={onFormularioChange}/>
+                            <input id="titulo" placeholder="Titulo..." name="titulo" type="text" pattern="[ A-z0-9,.\-'+`;@]{3,}" onChange={onFormularioChange}/>
                         </div>
                         <div className="input-div">
                             <textarea id="contenido" name="contenido" rows="7" placeholder="Escribe aquí tu mensaje..." onChange={onFormularioChange}/>

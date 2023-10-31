@@ -1,4 +1,5 @@
 <?php
+    require_once "../_sesion/_Sesion.php";
     require_once "Usuario.php";
     require_once "../_mixto/Utilidades.php";
 

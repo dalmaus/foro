@@ -63,9 +63,9 @@ function ListaHilos({hilos, setHilos}){
         );
     }else{
         return(
-            <div className="card-border">
-                <h3 className="error">No hay hilos</h3>
-            </div>
+                <div className="card-border">
+                    <h3 className="error">No hay hilos</h3>
+                </div>
         )
     }
 }

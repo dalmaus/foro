@@ -4,10 +4,10 @@
 
     $nombre = $_REQUEST["nombre"];
     $correo = $_REQUEST["correo"];
-    $password = $_REQUEST["password"];
+    $contrasenna = $_REQUEST["contrasenna"];
     $bio = $_REQUEST["bio"] ?? null;
     $lugar = $_REQUEST["lugar"] ?? null;
 
     headers();
-    echo json_encode(Usuario::crear($nombre, $correo, $password, $bio, $lugar), JSON_UNESCAPED_UNICODE);
+    echo json_encode(Usuario::crear($nombre, $correo, $contrasenna, $bio, $lugar), JSON_UNESCAPED_UNICODE);
 ?>

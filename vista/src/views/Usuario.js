@@ -21,6 +21,26 @@ function Usuario(){
                     <div className="nombre-usuario">
                         <span>{usuario.nombre}</span>
                     </div>
+                    <div className="detalles">
+                        <div className="labels">
+                            <strong>Bio</strong>
+                            <strong>Lugar</strong>
+                        </div>
+                        <div>
+                            <div className="datos">
+                                {usuario.bio
+                                    ? <span>{usuario.bio}</span>
+                                    : <span>Sin datos</span>
+                                }
+                            </div>
+                            <div>
+                                {usuario.lugar
+                                    ? <span>{usuario.lugar}</span>
+                                    : <span>Desconocido</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="mensajes-hilos">
                       <div className="usuario-hilos">
@@ -77,7 +97,7 @@ function ListaHilos({hilos}){
         );
     }else{
         return (
-            <div>
+            <div className="card-border margin-left">
                 <h3 className="error">Aún no hay hilos creados.</h3>
             </div>
         );

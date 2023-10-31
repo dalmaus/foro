@@ -14,14 +14,17 @@ export default function PerfilMensajes(){
     if(mensajes.length > 0){
         return(
             <div className="perfil-hilos">
-                <ListaMensajes mensajes={mensajesData} setMensajes={setMensajesData()}/>
+                <ListaMensajes mensajes={mensajesData} setMensajes={setMensajesData}/>
             </div>
         );
     }else{
         return(
-            <div className="card-border">
-                <h3 className="error">Aún no hay mensajes en este hilo</h3>
+            <div className="perfil-hilos">
+                <div className="card-border">
+                    <h3 className="error">Aún no hay mensajes</h3>
+                </div>
             </div>
+
         );
     }
 }
@@ -70,7 +73,7 @@ function ListaMensajes({mensajes, setMensajes}){
         );
     }else{
         return(
-            <div className="card-border">
+            <div className="card-border no-mensajes">
                 <h3 className="error">No hay mensajes</h3>
             </div>
         );

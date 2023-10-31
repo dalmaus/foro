@@ -27,14 +27,22 @@ function MensajeUsuario({usuario, mensaje}) { //para la página de usuario
     );
 }
 export function ListaMensajes({usuario, mensajes}){
-    const mensajesComponentes = [];
-    mensajes.forEach(mensaje => {
-        mensajesComponentes.push(<MensajeUsuario key={mensaje.id} usuario={usuario} mensaje={mensaje}/>)
-    });
-    return(
-        <ul className="lista-mensajes">
-            {mensajesComponentes}
-        </ul>
-    );
+    if(mensajes.length > 0) {
+        const mensajesComponentes = [];
+        mensajes.forEach(mensaje => {
+            mensajesComponentes.push(<MensajeUsuario key={mensaje.id} usuario={usuario} mensaje={mensaje}/>)
+        });
+        return (
+            <ul className="lista-mensajes">
+                {mensajesComponentes}
+            </ul>
+        );
+    }else{
+        return (
+            <div className="card-border" id="margin-left">
+                <h3 className="error">No tienes mensajes.</h3>
+            </div>
+        );
+    }
 }
 export default ListaMensajes;

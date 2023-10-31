@@ -1,5 +1,14 @@
 import urls, {tipos} from "./_constants";
 
+export async function createUsuario(usuario){
+
+    let usuarioRespuesta = {};
+
+    await fetch(`${urls.USUARIO_CREATE_ENDPOINT}?nombre=${usuario.nombre}&contrasenna=${usuario.contrasenna}&correo=${usuario.correo}`, {credentials: 'include'})
+        .then(respuesta => usuarioRespuesta = respuesta.json());
+    return usuarioRespuesta;
+}
+
 export async function getUsuario(usuarioId){
 
     let usuario = {};

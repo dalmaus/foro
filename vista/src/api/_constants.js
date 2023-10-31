@@ -8,6 +8,7 @@ const urls = {
   USUARIO_HILOS_ENDPOINT: `${API_ENDPOINT}/hilo/HilosPorUsuario.php`,
   USUARIO_MENSAJES_ENDPOINT: `${API_ENDPOINT}/mensaje/MensajesPorUsuario.php`,
   USUARIO_ENDPOINT: `${API_ENDPOINT}/usuario/Show.php`,
+  USUARIO_CREATE_ENDPOINT: `${API_ENDPOINT}/usuario/Create.php`,
   USUARIO_UPDATE_ENDPOINT: `${API_ENDPOINT}/usuario/Update.php`,
   USUARIO_DATOS_ENDPOINT: `${API_ENDPOINT}/_sesion/Yo.php`,
   USUARIO_AUTENTICADO_ENDPOINT: `${API_ENDPOINT}/_sesion/SesionComprobar.php`,

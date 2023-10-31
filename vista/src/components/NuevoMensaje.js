@@ -21,6 +21,8 @@ export default function NuevoMensaje({hilo, setHilo}) {
                     setHilo({...hilo});
                 })
             );
+        const boton = document.querySelector("#nuevo-mensaje-button");
+        boton.setAttribute("disabled", "");
         evento.target.reset();
 
     }

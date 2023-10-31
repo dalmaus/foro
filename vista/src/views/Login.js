@@ -5,8 +5,8 @@ import {useState} from "react";
 export function Login(){
     const [checked, setChecked] = useState(false);
     const [formDatos, setFormDatos] = useState({
-        nombre: "usuario1",
-        contrasenna: "password1",
+        nombre: "",
+        contrasenna: "",
     });
 
     const navigate = useNavigate();
@@ -35,6 +35,8 @@ export function Login(){
                 })
             );
         if(login){
+            localStorage.setItem("usuario_nombre", login.nombre);
+            localStorage.setItem("usuario_id", login.id);
             navigate("/home")
         }else{
             console.log("Login erróneo.")
