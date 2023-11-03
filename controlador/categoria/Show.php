@@ -1,10 +1,16 @@
 <?php
+    require_once "../_sesion/_Sesion.php";
     require_once "../_mixto/DAO.php";
     require_once "../_mixto/Utilidades.php";
 
-    $categoriaId = $_REQUEST["categoria"] ?? null;
-    $categoria = DAO::categoriaObtenerPorId($categoriaId);
-
     headers();
-    echo json_encode($categoria, JSON_UNESCAPED_UNICODE);
+    if(sesionIniciada()){
+        $categoriaId = $_REQUEST["categoria"] ?? null;
+        $categoria = DAO::categoriaObtenerPorId($categoriaId);
+
+        echo json_encode($categoria, JSON_UNESCAPED_UNICODE);
+    }else{
+        echo json_encode(null);
+    }
+
 ?>
